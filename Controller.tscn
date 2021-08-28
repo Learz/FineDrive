@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Controller.gd" type="Script" id=1]
+[ext_resource path="res://CameraTrack.gd" type="Script" id=2]
+[ext_resource path="res://models/Kenny/sedan.glb" type="PackedScene" id=3]
+[ext_resource path="res://UI/UI_Theme.tres" type="Theme" id=4]
+[ext_resource path="res://UI.gd" type="Script" id=5]
+[ext_resource path="res://UI/Roboto-Regular.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, -1.02937, 0, 0, Vector2( 1, 0 ), -3.31636, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, -0.709091, 0, 1, Vector2( 1, 0.290909 ), -0.709091, 0.0, 1, 0 ]
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 6 )
+
+[node name="Controller" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 274.482, 9.74856, 458.146 )
+script = ExtResource( 1 )
+acceleration_curve = SubResource( 1 )
+turning_curve = SubResource( 2 )
+
+[node name="sedan" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.120598, 0 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CameraTrack" type="Spatial" parent="."]
+script = ExtResource( 2 )
+track_object = NodePath("../sedan")
+
+[node name="Camera" type="Camera" parent="CameraTrack"]
+transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 2.5, 3 )
+current = true
+far = 500.0
+
+[node name="UI" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugInfo" type="Label" parent="UI"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 40.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 3 )
+text = "Test : 12414
+Test2 : 131"
+__meta__ = {
+"_edit_use_anchors_": false
+}

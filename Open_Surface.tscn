@@ -1,0 +1,1334 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
+[ext_resource path="res://HTerrain/data.hterrain" type="Resource" id=3]
+[ext_resource path="res://Controller.tscn" type="PackedScene" id=4]
+[ext_resource path="res://models/Shine.tscn" type="PackedScene" id=5]
+[ext_resource path="res://models/Entities/Gacha.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+mode = 0
+textures = [ [  ], [  ] ]
+
+[sub_resource type="PlaneMesh" id=2]
+size = Vector2( 10000, 10000 )
+subdivide_width = 10
+subdivide_depth = 10
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+albedo_color = Color( 0.419608, 0.85098, 1, 0.392157 )
+
+[sub_resource type="Curve3D" id=4]
+_data = {
+"points": PoolVector3Array( -22.3847, 0, 21.4866, 22.3847, 0, -21.4866, 27.7293, -0.135337, -18.6559, -28.0421, 0.202393, 19.5514, 28.0421, -0.202393, -19.5514, 188.044, -8.29697e-05, -147.962, -28.4627, -2.98801, 9.72885, 28.4627, 2.98801, -9.72885, 265.885, 8.44481, -164.967, -18.1826, -2.02257, 11.8501, 18.1826, 2.02257, -11.8501, 342.863, 16.8336, -188.256, -9.30701, -6.53564, 23.5212, 9.30701, 6.53564, -23.5212, 373.97, 19.9274, -257.591, 13.9218, -3.13077, 19.9744, -13.9218, 3.13077, -19.9744, 350.78, 25.591, -334.319, 33.8312, -3.7964, -2.22333, -33.8312, 3.7964, 2.22333, 288.172, 48.0878, -350.811, 20.1677, 3.83178, -27.2415, -20.1677, -3.83178, 27.2415, 223.422, 33.4052, -298.399, 11.204, -4.30896, 39.0876, -11.204, 4.30896, -39.0876, 114.431, 9.95876, -311.56, -6.01086, -12.3786, 30.4788, 6.01086, 12.3786, -30.4788, 112.864, 35.3016, -395.663, -0.0476074, -0.2201, 18.3495, 0.0476074, 0.2201, -18.3495, 128.373, 59.406, -457.884, 15.8381, 1.78668, 20.6876, -15.8381, -1.78668, -20.6876, 120.367, 42.992, -517.211, 30.2457, -3.8147e-05, -20.3004, -30.2457, 3.8147e-05, 20.3004, -13.4328, 27.6198, -534.335, 15.0826, -9.15527e-05, -20.0829, -15.0826, 9.15527e-05, 20.0829, -76.1251, 28.5017, -476.218, 17.2741, -5.72205e-06, -46.3141, -17.2741, 5.72205e-06, 46.3141, -122.926, 14.2836, -407.839, 0, 0, 0, 0, 0, 0, -122.403, -1.06979, -240.266 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="Open_Surface" type="Spatial"]
+
+[node name="HTerrain" type="Spatial" parent="."]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+_terrain_data = ExtResource( 3 )
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource( 1 )
+shader_params/u_ground_uv_scale_per_texture = Plane( 20, 20, 20, 20 )
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = false
+shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
+shader_params/u_globalmap_blend_start = null
+shader_params/u_globalmap_blend_distance = null
+shader_params/u_colormap_opacity_per_texture = Plane( 1, 1, 1, 1 )
+
+[node name="Controller" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 274.482, 9.92703, 458.146 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.713886, -0.185982, 0.675113, 0, 0.964086, 0.26559, -0.700262, -0.189601, 0.688248, 271.104, 16.653, 467.053 )
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Sea" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 500, 0, 500 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( -0.0319515, 0, 0.999489, 0, 1, 0, -0.999489, 0, -0.0319515, 274.472, 10.2541, 447.012 )
+use_collision = true
+width = 4.43853
+depth = 4.40736
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( -0.0319515, 0, 0.999489, 0, 1, 0, -0.999489, 0, -0.0319515, 274.23, 10.2541, 439.436 )
+use_collision = true
+width = 4.43853
+height = 4.31466
+depth = 4.40736
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( -0.0319515, 0, 0.999489, 0, 1, 0, -0.999489, 0, -0.0319515, 274.658, 10.0178, 452.812 )
+use_collision = true
+width = 3.75359
+height = 0.756124
+depth = 4.64677
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( -0.0319515, 0, 0.999489, 0.153408, 0.988151, 0.00490411, -0.987646, 0.153486, -0.0315729, 274.658, 12.2174, 446.229 )
+operation = 2
+use_collision = true
+width = 18.3229
+height = 1.81846
+depth = 6.12285
+
+[node name="Shine" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 451.456 )
+
+[node name="Shine2" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 450.126 )
+
+[node name="Shine3" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 448.578 )
+
+[node name="Shine4" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 447.056 )
+
+[node name="Shine5" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 445.324 )
+
+[node name="gacha" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 457.423 )
+
+[node name="gacha2" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 459.423 )
+
+[node name="gacha3" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 461.423 )
+
+[node name="gacha4" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 463.423 )
+
+[node name="gacha5" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 465.423 )
+
+[node name="gacha6" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 457.423 )
+
+[node name="gacha7" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 459.423 )
+
+[node name="gacha8" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 461.423 )
+
+[node name="gacha9" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 463.423 )
+
+[node name="gacha10" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 465.423 )
+
+[node name="gacha11" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 457.423 )
+
+[node name="gacha12" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 459.423 )
+
+[node name="gacha13" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 461.423 )
+
+[node name="gacha14" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 463.423 )
+
+[node name="gacha15" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 465.423 )
+
+[node name="gacha16" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 457.423 )
+
+[node name="gacha17" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 459.423 )
+
+[node name="gacha18" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 461.423 )
+
+[node name="gacha19" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 463.423 )
+
+[node name="gacha20" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 465.423 )
+
+[node name="gacha21" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 457.423 )
+
+[node name="gacha22" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 459.423 )
+
+[node name="gacha23" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 461.423 )
+
+[node name="gacha24" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 463.423 )
+
+[node name="gacha25" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 465.423 )
+
+[node name="gacha26" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 457.423 )
+
+[node name="gacha27" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 459.423 )
+
+[node name="gacha28" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 461.423 )
+
+[node name="gacha29" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 463.423 )
+
+[node name="gacha30" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 465.423 )
+
+[node name="gacha31" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 457.423 )
+
+[node name="gacha32" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 459.423 )
+
+[node name="gacha33" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 461.423 )
+
+[node name="gacha34" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 463.423 )
+
+[node name="gacha35" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 465.423 )
+
+[node name="gacha36" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 457.423 )
+
+[node name="gacha37" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 459.423 )
+
+[node name="gacha38" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 461.423 )
+
+[node name="gacha39" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 463.423 )
+
+[node name="gacha40" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 465.423 )
+
+[node name="gacha41" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 457.423 )
+
+[node name="gacha42" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 459.423 )
+
+[node name="gacha43" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 461.423 )
+
+[node name="gacha44" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 463.423 )
+
+[node name="gacha45" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 465.423 )
+
+[node name="gacha46" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 457.423 )
+
+[node name="gacha47" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 459.423 )
+
+[node name="gacha48" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 461.423 )
+
+[node name="gacha49" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 463.423 )
+
+[node name="gacha50" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 465.423 )
+
+[node name="gacha51" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 467.423 )
+
+[node name="gacha52" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 469.423 )
+
+[node name="gacha53" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 471.423 )
+
+[node name="gacha54" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 473.423 )
+
+[node name="gacha55" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 475.423 )
+
+[node name="gacha56" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 467.423 )
+
+[node name="gacha57" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 469.423 )
+
+[node name="gacha58" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 471.423 )
+
+[node name="gacha59" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 473.423 )
+
+[node name="gacha60" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 475.423 )
+
+[node name="gacha61" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 467.423 )
+
+[node name="gacha62" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 469.423 )
+
+[node name="gacha63" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 471.423 )
+
+[node name="gacha64" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 473.423 )
+
+[node name="gacha65" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 475.423 )
+
+[node name="gacha66" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 467.423 )
+
+[node name="gacha67" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 469.423 )
+
+[node name="gacha68" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 471.423 )
+
+[node name="gacha69" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 473.423 )
+
+[node name="gacha70" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 475.423 )
+
+[node name="gacha71" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 467.423 )
+
+[node name="gacha72" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 469.423 )
+
+[node name="gacha73" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 471.423 )
+
+[node name="gacha74" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 473.423 )
+
+[node name="gacha75" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 475.423 )
+
+[node name="gacha76" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 467.423 )
+
+[node name="gacha77" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 469.423 )
+
+[node name="gacha78" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 471.423 )
+
+[node name="gacha79" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 473.423 )
+
+[node name="gacha80" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 475.423 )
+
+[node name="gacha81" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 467.423 )
+
+[node name="gacha82" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 469.423 )
+
+[node name="gacha83" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 471.423 )
+
+[node name="gacha84" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 473.423 )
+
+[node name="gacha85" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 475.423 )
+
+[node name="gacha86" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 467.423 )
+
+[node name="gacha87" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 469.423 )
+
+[node name="gacha88" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 471.423 )
+
+[node name="gacha89" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 473.423 )
+
+[node name="gacha90" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 475.423 )
+
+[node name="gacha91" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 467.423 )
+
+[node name="gacha92" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 469.423 )
+
+[node name="gacha93" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 471.423 )
+
+[node name="gacha94" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 473.423 )
+
+[node name="gacha95" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 475.423 )
+
+[node name="gacha96" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 467.423 )
+
+[node name="gacha97" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 469.423 )
+
+[node name="gacha98" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 471.423 )
+
+[node name="gacha99" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 473.423 )
+
+[node name="gacha100" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 475.423 )
+
+[node name="gacha101" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 477.423 )
+
+[node name="gacha102" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 479.423 )
+
+[node name="gacha103" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 481.423 )
+
+[node name="gacha104" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 483.423 )
+
+[node name="gacha105" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 485.423 )
+
+[node name="gacha106" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 477.423 )
+
+[node name="gacha107" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 479.423 )
+
+[node name="gacha108" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 481.423 )
+
+[node name="gacha109" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 483.423 )
+
+[node name="gacha110" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 485.423 )
+
+[node name="gacha111" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 477.423 )
+
+[node name="gacha112" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 479.423 )
+
+[node name="gacha113" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 481.423 )
+
+[node name="gacha114" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 483.423 )
+
+[node name="gacha115" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 485.423 )
+
+[node name="gacha116" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 477.423 )
+
+[node name="gacha117" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 479.423 )
+
+[node name="gacha118" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 481.423 )
+
+[node name="gacha119" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 483.423 )
+
+[node name="gacha120" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 485.423 )
+
+[node name="gacha121" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 477.423 )
+
+[node name="gacha122" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 479.423 )
+
+[node name="gacha123" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 481.423 )
+
+[node name="gacha124" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 483.423 )
+
+[node name="gacha125" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 485.423 )
+
+[node name="gacha126" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 477.423 )
+
+[node name="gacha127" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 479.423 )
+
+[node name="gacha128" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 481.423 )
+
+[node name="gacha129" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 483.423 )
+
+[node name="gacha130" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 485.423 )
+
+[node name="gacha131" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 477.423 )
+
+[node name="gacha132" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 479.423 )
+
+[node name="gacha133" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 481.423 )
+
+[node name="gacha134" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 483.423 )
+
+[node name="gacha135" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 485.423 )
+
+[node name="gacha136" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 477.423 )
+
+[node name="gacha137" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 479.423 )
+
+[node name="gacha138" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 481.423 )
+
+[node name="gacha139" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 483.423 )
+
+[node name="gacha140" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 485.423 )
+
+[node name="gacha141" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 477.423 )
+
+[node name="gacha142" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 479.423 )
+
+[node name="gacha143" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 481.423 )
+
+[node name="gacha144" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 483.423 )
+
+[node name="gacha145" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 485.423 )
+
+[node name="gacha146" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 477.423 )
+
+[node name="gacha147" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 479.423 )
+
+[node name="gacha148" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 481.423 )
+
+[node name="gacha149" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 483.423 )
+
+[node name="gacha150" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 485.423 )
+
+[node name="gacha151" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 487.423 )
+
+[node name="gacha152" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 489.423 )
+
+[node name="gacha153" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 491.423 )
+
+[node name="gacha154" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 493.423 )
+
+[node name="gacha155" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 495.423 )
+
+[node name="gacha156" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 487.423 )
+
+[node name="gacha157" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 489.423 )
+
+[node name="gacha158" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 491.423 )
+
+[node name="gacha159" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 493.423 )
+
+[node name="gacha160" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 280.044, 10.6351, 495.423 )
+
+[node name="gacha161" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 487.423 )
+
+[node name="gacha162" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 489.423 )
+
+[node name="gacha163" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 491.423 )
+
+[node name="gacha164" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 493.423 )
+
+[node name="gacha165" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 282.044, 10.6351, 495.423 )
+
+[node name="gacha166" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 487.423 )
+
+[node name="gacha167" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 489.423 )
+
+[node name="gacha168" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 491.423 )
+
+[node name="gacha169" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 493.423 )
+
+[node name="gacha170" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 284.044, 10.6351, 495.423 )
+
+[node name="gacha171" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 487.423 )
+
+[node name="gacha172" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 489.423 )
+
+[node name="gacha173" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 491.423 )
+
+[node name="gacha174" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 493.423 )
+
+[node name="gacha175" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 286.044, 10.6351, 495.423 )
+
+[node name="gacha176" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 487.423 )
+
+[node name="gacha177" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 489.423 )
+
+[node name="gacha178" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 491.423 )
+
+[node name="gacha179" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 493.423 )
+
+[node name="gacha180" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 288.044, 10.6351, 495.423 )
+
+[node name="gacha181" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 487.423 )
+
+[node name="gacha182" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 489.423 )
+
+[node name="gacha183" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 491.423 )
+
+[node name="gacha184" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 493.423 )
+
+[node name="gacha185" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 290.044, 10.6351, 495.423 )
+
+[node name="gacha186" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 487.423 )
+
+[node name="gacha187" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 489.423 )
+
+[node name="gacha188" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 491.423 )
+
+[node name="gacha189" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 493.423 )
+
+[node name="gacha190" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 292.044, 10.6351, 495.423 )
+
+[node name="gacha191" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 487.423 )
+
+[node name="gacha192" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 489.423 )
+
+[node name="gacha193" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 491.423 )
+
+[node name="gacha194" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 493.423 )
+
+[node name="gacha195" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 294.044, 10.6351, 495.423 )
+
+[node name="gacha196" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 487.423 )
+
+[node name="gacha197" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 489.423 )
+
+[node name="gacha198" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 491.423 )
+
+[node name="gacha199" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 493.423 )
+
+[node name="gacha200" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 296.044, 10.6351, 495.423 )
+
+[node name="gacha201" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 477.423 )
+
+[node name="gacha202" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 479.423 )
+
+[node name="gacha203" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 481.423 )
+
+[node name="gacha204" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 483.423 )
+
+[node name="gacha205" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 485.423 )
+
+[node name="gacha206" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 477.423 )
+
+[node name="gacha207" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 479.423 )
+
+[node name="gacha208" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 481.423 )
+
+[node name="gacha209" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 483.423 )
+
+[node name="gacha210" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 485.423 )
+
+[node name="gacha211" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 477.423 )
+
+[node name="gacha212" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 479.423 )
+
+[node name="gacha213" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 481.423 )
+
+[node name="gacha214" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 483.423 )
+
+[node name="gacha215" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 485.423 )
+
+[node name="gacha216" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 477.423 )
+
+[node name="gacha217" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 479.423 )
+
+[node name="gacha218" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 481.423 )
+
+[node name="gacha219" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 483.423 )
+
+[node name="gacha220" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 485.423 )
+
+[node name="gacha221" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 477.423 )
+
+[node name="gacha222" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 479.423 )
+
+[node name="gacha223" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 481.423 )
+
+[node name="gacha224" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 483.423 )
+
+[node name="gacha225" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 485.423 )
+
+[node name="gacha226" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 477.423 )
+
+[node name="gacha227" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 479.423 )
+
+[node name="gacha228" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 481.423 )
+
+[node name="gacha229" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 483.423 )
+
+[node name="gacha230" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 485.423 )
+
+[node name="gacha231" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 477.423 )
+
+[node name="gacha232" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 479.423 )
+
+[node name="gacha233" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 481.423 )
+
+[node name="gacha234" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 483.423 )
+
+[node name="gacha235" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 485.423 )
+
+[node name="gacha236" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 477.423 )
+
+[node name="gacha237" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 479.423 )
+
+[node name="gacha238" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 481.423 )
+
+[node name="gacha239" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 483.423 )
+
+[node name="gacha240" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 485.423 )
+
+[node name="gacha241" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 477.423 )
+
+[node name="gacha242" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 479.423 )
+
+[node name="gacha243" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 481.423 )
+
+[node name="gacha244" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 483.423 )
+
+[node name="gacha245" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 485.423 )
+
+[node name="gacha246" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 477.423 )
+
+[node name="gacha247" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 479.423 )
+
+[node name="gacha248" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 481.423 )
+
+[node name="gacha249" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 483.423 )
+
+[node name="gacha250" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 485.423 )
+
+[node name="gacha251" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 487.423 )
+
+[node name="gacha252" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 489.423 )
+
+[node name="gacha253" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 491.423 )
+
+[node name="gacha254" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 493.423 )
+
+[node name="gacha255" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 495.423 )
+
+[node name="gacha256" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 487.423 )
+
+[node name="gacha257" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 489.423 )
+
+[node name="gacha258" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 491.423 )
+
+[node name="gacha259" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 493.423 )
+
+[node name="gacha260" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 495.423 )
+
+[node name="gacha261" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 487.423 )
+
+[node name="gacha262" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 489.423 )
+
+[node name="gacha263" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 491.423 )
+
+[node name="gacha264" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 493.423 )
+
+[node name="gacha265" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 495.423 )
+
+[node name="gacha266" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 487.423 )
+
+[node name="gacha267" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 489.423 )
+
+[node name="gacha268" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 491.423 )
+
+[node name="gacha269" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 493.423 )
+
+[node name="gacha270" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 495.423 )
+
+[node name="gacha271" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 487.423 )
+
+[node name="gacha272" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 489.423 )
+
+[node name="gacha273" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 491.423 )
+
+[node name="gacha274" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 493.423 )
+
+[node name="gacha275" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 495.423 )
+
+[node name="gacha276" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 487.423 )
+
+[node name="gacha277" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 489.423 )
+
+[node name="gacha278" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 491.423 )
+
+[node name="gacha279" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 493.423 )
+
+[node name="gacha280" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 495.423 )
+
+[node name="gacha281" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 487.423 )
+
+[node name="gacha282" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 489.423 )
+
+[node name="gacha283" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 491.423 )
+
+[node name="gacha284" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 493.423 )
+
+[node name="gacha285" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 495.423 )
+
+[node name="gacha286" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 487.423 )
+
+[node name="gacha287" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 489.423 )
+
+[node name="gacha288" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 491.423 )
+
+[node name="gacha289" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 493.423 )
+
+[node name="gacha290" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 495.423 )
+
+[node name="gacha291" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 487.423 )
+
+[node name="gacha292" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 489.423 )
+
+[node name="gacha293" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 491.423 )
+
+[node name="gacha294" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 493.423 )
+
+[node name="gacha295" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 495.423 )
+
+[node name="gacha296" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 487.423 )
+
+[node name="gacha297" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 489.423 )
+
+[node name="gacha298" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 491.423 )
+
+[node name="gacha299" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 493.423 )
+
+[node name="gacha300" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 495.423 )
+
+[node name="gacha301" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 457.423 )
+
+[node name="gacha302" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 459.423 )
+
+[node name="gacha303" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 461.423 )
+
+[node name="gacha304" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 463.423 )
+
+[node name="gacha305" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 465.423 )
+
+[node name="gacha306" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 457.423 )
+
+[node name="gacha307" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 459.423 )
+
+[node name="gacha308" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 461.423 )
+
+[node name="gacha309" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 463.423 )
+
+[node name="gacha310" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 465.423 )
+
+[node name="gacha311" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 457.423 )
+
+[node name="gacha312" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 459.423 )
+
+[node name="gacha313" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 461.423 )
+
+[node name="gacha314" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 463.423 )
+
+[node name="gacha315" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 465.423 )
+
+[node name="gacha316" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 457.423 )
+
+[node name="gacha317" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 459.423 )
+
+[node name="gacha318" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 461.423 )
+
+[node name="gacha319" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 463.423 )
+
+[node name="gacha320" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 465.423 )
+
+[node name="gacha321" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 457.423 )
+
+[node name="gacha322" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 459.423 )
+
+[node name="gacha323" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 461.423 )
+
+[node name="gacha324" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 463.423 )
+
+[node name="gacha325" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 465.423 )
+
+[node name="gacha326" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 457.423 )
+
+[node name="gacha327" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 459.423 )
+
+[node name="gacha328" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 461.423 )
+
+[node name="gacha329" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 463.423 )
+
+[node name="gacha330" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 465.423 )
+
+[node name="gacha331" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 457.423 )
+
+[node name="gacha332" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 459.423 )
+
+[node name="gacha333" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 461.423 )
+
+[node name="gacha334" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 463.423 )
+
+[node name="gacha335" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 465.423 )
+
+[node name="gacha336" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 457.423 )
+
+[node name="gacha337" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 459.423 )
+
+[node name="gacha338" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 461.423 )
+
+[node name="gacha339" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 463.423 )
+
+[node name="gacha340" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 465.423 )
+
+[node name="gacha341" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 457.423 )
+
+[node name="gacha342" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 459.423 )
+
+[node name="gacha343" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 461.423 )
+
+[node name="gacha344" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 463.423 )
+
+[node name="gacha345" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 465.423 )
+
+[node name="gacha346" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 457.423 )
+
+[node name="gacha347" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 459.423 )
+
+[node name="gacha348" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 461.423 )
+
+[node name="gacha349" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 463.423 )
+
+[node name="gacha350" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 465.423 )
+
+[node name="gacha351" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 467.423 )
+
+[node name="gacha352" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 469.423 )
+
+[node name="gacha353" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 471.423 )
+
+[node name="gacha354" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 473.423 )
+
+[node name="gacha355" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 298.044, 10.6351, 475.423 )
+
+[node name="gacha356" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 467.423 )
+
+[node name="gacha357" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 469.423 )
+
+[node name="gacha358" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 471.423 )
+
+[node name="gacha359" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 473.423 )
+
+[node name="gacha360" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 300.044, 10.6351, 475.423 )
+
+[node name="gacha361" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 467.423 )
+
+[node name="gacha362" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 469.423 )
+
+[node name="gacha363" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 471.423 )
+
+[node name="gacha364" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 473.423 )
+
+[node name="gacha365" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 302.044, 10.6351, 475.423 )
+
+[node name="gacha366" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 467.423 )
+
+[node name="gacha367" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 469.423 )
+
+[node name="gacha368" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 471.423 )
+
+[node name="gacha369" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 473.423 )
+
+[node name="gacha370" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 304.044, 10.6351, 475.423 )
+
+[node name="gacha371" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 467.423 )
+
+[node name="gacha372" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 469.423 )
+
+[node name="gacha373" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 471.423 )
+
+[node name="gacha374" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 473.423 )
+
+[node name="gacha375" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 306.044, 10.6351, 475.423 )
+
+[node name="gacha376" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 467.423 )
+
+[node name="gacha377" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 469.423 )
+
+[node name="gacha378" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 471.423 )
+
+[node name="gacha379" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 473.423 )
+
+[node name="gacha380" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 308.044, 10.6351, 475.423 )
+
+[node name="gacha381" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 467.423 )
+
+[node name="gacha382" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 469.423 )
+
+[node name="gacha383" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 471.423 )
+
+[node name="gacha384" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 473.423 )
+
+[node name="gacha385" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 310.044, 10.6351, 475.423 )
+
+[node name="gacha386" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 467.423 )
+
+[node name="gacha387" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 469.423 )
+
+[node name="gacha388" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 471.423 )
+
+[node name="gacha389" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 473.423 )
+
+[node name="gacha390" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 312.044, 10.6351, 475.423 )
+
+[node name="gacha391" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 467.423 )
+
+[node name="gacha392" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 469.423 )
+
+[node name="gacha393" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 471.423 )
+
+[node name="gacha394" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 473.423 )
+
+[node name="gacha395" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 314.044, 10.6351, 475.423 )
+
+[node name="gacha396" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 467.423 )
+
+[node name="gacha397" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 469.423 )
+
+[node name="gacha398" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 471.423 )
+
+[node name="gacha399" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 473.423 )
+
+[node name="gacha400" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 316.044, 10.6351, 475.423 )
+
+[node name="Shine6" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 443.21 )
+
+[node name="Road" type="Path" parent="."]
+transform = Transform( -0.0921273, 0, -0.995747, 0, 1, 0, 0.995747, 0, -0.0921273, 273.23, 9.91219, 466.734 )
+curve = SubResource( 4 )
+
+[node name="CSGPolygon2" type="CSGPolygon" parent="Road"]
+transform = Transform( -0.0921273, 0, 0.995748, 0, 1, 0, -0.995748, 0, -0.0921273, 0, 0, 0 )
+use_collision = true
+invert_faces = true
+polygon = PoolVector2Array( -3, 0, -3, 0.2, 3, 0.2, 3, 0 )
+mode = 2
+path_node = NodePath("..")
+path_interval = 1.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = false
