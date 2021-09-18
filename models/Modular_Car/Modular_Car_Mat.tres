@@ -1,0 +1,30 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+
+uniform vec4 base_mask : hint_color;
+uniform vec4 base_color : hint_color;
+
+uniform vec4 window_mask : hint_color;
+uniform vec4 window_color : hint_color;
+
+void vertex(){
+	if(COLOR.r >= window_mask.r && COLOR.g >= window_mask.g && COLOR.b >= window_mask.b){
+		COLOR = window_color;
+	}
+	if(COLOR.r >= base_mask.r && COLOR.g >= base_mask.g && COLOR.b >= base_mask.b){
+		COLOR = base_color;
+	}
+}
+
+void fragment(){
+	ALBEDO = COLOR.rgb;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/base_mask = Color( 0.79, 0, 1, 1 )
+shader_param/base_color = Color( 1, 0.537255, 0, 1 )
+shader_param/window_mask = Color( 0, 0.69, 1, 1 )
+shader_param/window_color = Color( 0.47451, 0.721569, 0.737255, 1 )

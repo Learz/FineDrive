@@ -5,7 +5,7 @@
 [ext_resource path="res://HTerrain/data.hterrain" type="Resource" id=3]
 [ext_resource path="res://Controller.tscn" type="PackedScene" id=4]
 [ext_resource path="res://models/Shine.tscn" type="PackedScene" id=5]
-[ext_resource path="res://models/Entities/Gacha.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Entities/Gacha.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 1 )
@@ -50,9 +50,6 @@ shader_params/u_tile_reduction = Plane( 0, 0, 0, 0 )
 shader_params/u_globalmap_blend_start = null
 shader_params/u_globalmap_blend_distance = null
 shader_params/u_colormap_opacity_per_texture = Plane( 1, 1, 1, 1 )
-
-[node name="Controller" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 274.482, 9.92703, 458.146 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.713886, -0.185982, 0.675113, 0, 0.964086, 0.26559, -0.700262, -0.189601, 0.688248, 271.104, 16.653, 467.053 )
@@ -1332,3 +1329,6 @@ path_rotation = 2
 path_local = false
 path_continuous_u = false
 path_joined = false
+
+[node name="Controller" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 275.12, 10.0046, 458.947 )

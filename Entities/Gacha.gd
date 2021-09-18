@@ -27,10 +27,6 @@ func _process(delta):
 #			if $RigidBody_Bottom/Gacha_Bottom.scale <= Vector3.ZERO:
 #				queue_free()
 
-
-# FIX : Try to make it so the gacha react to the car but the car doesn't react to the gacha
-# Otherwise there's a chance you get stuck on a ball getting under the car
-# Collision layers and masks should give that option I just don't know how lol
 func _on_HitArea_body_entered(body):
 	if body.has_meta("car") and not collided:
 		$RigidBody_Bottom.mode = RigidBody.MODE_RIGID

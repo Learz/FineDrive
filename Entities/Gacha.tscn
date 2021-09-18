@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://models/Entities/Gacha.glb" type="PackedScene" id=1]
-[ext_resource path="res://models/Entities/Transparent.material" type="Material" id=2]
-[ext_resource path="res://models/Entities/Plastic.material" type="Material" id=3]
-[ext_resource path="res://models/Entities/Gacha.gd" type="Script" id=4]
+[ext_resource path="res://Entities/Gacha.glb" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Transparent.material" type="Material" id=2]
+[ext_resource path="res://Entities/Plastic.material" type="Material" id=3]
+[ext_resource path="res://Entities/Gacha.gd" type="Script" id=4]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0 ), 0.0, 4.03948, 0, 0, Vector2( 0.494792, 1 ), -0.0210297, -0.0210297, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]

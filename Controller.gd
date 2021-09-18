@@ -4,11 +4,11 @@ class_name Controller
 export (Curve) var acceleration_curve : Curve
 export (Curve) var turning_curve : Curve
 
-onready var car = $sedan as VehicleBody
-onready var wheel_frontLeft := $sedan/phys_wheel_frontLeft
-onready var wheel_frontRight := $sedan/phys_wheel_frontRight
-onready var wheel_backLeft := $sedan/phys_wheel_backLeft
-onready var wheel_backRight := $sedan/phys_wheel_backRight
+onready var car = $Car_Base as ModularCar
+onready var wheel_frontLeft := $Car_Base/Wheel_Front_L_Pos
+onready var wheel_frontRight := $Car_Base/Wheel_Front_R_Pos
+onready var wheel_backLeft := $Car_Base/Wheel_Rear_L_Pos
+onready var wheel_backRight := $Car_Base/Wheel_Rear_R_Pos
 
 const MAX_ENGINE_FORCE = 300.0
 const MAX_SPEED = 50.0

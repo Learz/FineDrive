@@ -6,6 +6,7 @@ var controller : Controller
 
 #List of debug variables to display
 var debug = {}
+
 # HACK : Doesn't that already exist?
 # Look into OS ticks or something
 # Time since the game started

@@ -16,27 +16,25 @@ func post_import(scene):
 	
 func iterate(node):
 	if node != null:
-		if "wheel" in node.name and not node is VehicleWheel:
+		if "Wheel" in node.name and not node is VehicleWheel:
 			var new_node = wheel_template.instance() as VehicleWheel
-			new_node.name = "phys_" + node.name
+			new_node.name = node.name
 			new_node.transform.origin = node.transform.origin
 			rootScene.add_child(new_node)
 			new_node.owner = rootScene
 			node.get_parent().remove_child(node)
-			new_node.add_child(node)
 			node.owner = rootScene
-			node.transform = node.transform.rotated(Vector3(0,1,0), deg2rad(180))
 			node.transform.origin = Vector3.ZERO
-			if "front" in node.name:
+			if "Front" in node.name:
 				new_node.use_as_steering = true
-			if "back" in node.name:
+			if "Rear" in node.name:
 				new_node.use_as_traction = true
-		elif "body" in node.name:
-			node.get_parent().remove_child(node)
-			rootScene.add_child(node)
-			node.owner = rootScene
-			node = node as MeshInstance
-		elif node != rootScene:
-			node.get_parent().remove_child(node)
+#		elif "body" in node.name:
+#			node.get_parent().remove_child(node)
+#			rootScene.add_child(node)
+#			node.owner = rootScene
+#			node = node as MeshInstance
+#		elif node != rootScene:
+#			node.get_parent().remove_child(node)
 		for child in node.get_children():
 			iterate(child)

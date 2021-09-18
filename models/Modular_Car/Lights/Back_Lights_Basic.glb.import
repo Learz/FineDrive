@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Gacha.glb-391c0868fa4443904da25aa3c724178a.scn"
+path="res://.import/Back_Lights_Basic.glb-ee99c85040fcd6857b8f437440acf023.scn"
 
 [deps]
 
-source_file="res://models/Entities/Gacha.glb"
-dest_files=[ "res://.import/Gacha.glb-391c0868fa4443904da25aa3c724178a.scn" ]
+source_file="res://models/Modular_Car/Lights/Back_Lights_Basic.glb"
+dest_files=[ "res://.import/Back_Lights_Basic.glb-ee99c85040fcd6857b8f437440acf023.scn" ]
 
 [params]
 

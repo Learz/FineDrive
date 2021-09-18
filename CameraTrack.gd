@@ -17,6 +17,7 @@ func _ready():
 
 
 # TODO : Better camera tracking
+# FIX : The camera jitters once in a while, I blame the lerp (delta*10 I think)
 func _process(delta):
 	transform.origin = lerp(transform.origin, track_object.transform.origin, delta*10)
 	rotation.y = lerp_angle(rotation.y, track_object.rotation.y, delta*10.0)
