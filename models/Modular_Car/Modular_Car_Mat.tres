@@ -5,16 +5,29 @@ code = "shader_type spatial;
 
 uniform vec4 base_mask : hint_color;
 uniform vec4 base_color : hint_color;
+uniform vec4 next_color : hint_color;
+uniform float color_transition : hint_range(-1,1);
 
 uniform vec4 window_mask : hint_color;
 uniform vec4 window_color : hint_color;
+
+/**
+ * Draw a circle at vec2 `pos` with radius `rad` and
+ * color `color`.
+ */
+vec4 circle(vec2 uv, vec2 pos, float rad, vec3 color) {
+	float d = length(pos - uv) - rad;
+	float t = clamp(d, 0.0, 1.0);
+	return vec4(color, 1.0 - t);
+}
 
 void vertex(){
 	if(COLOR.r >= window_mask.r && COLOR.g >= window_mask.g && COLOR.b >= window_mask.b){
 		COLOR = window_color;
 	}
 	if(COLOR.r >= base_mask.r && COLOR.g >= base_mask.g && COLOR.b >= base_mask.b){
-		COLOR = base_color;
+		vec4 circ = circle(UV, vec2(0.0,0.0), color_transition, next_color.rgb);
+		COLOR = mix(base_color, circ, circ.a);
 	}
 }
 
@@ -25,6 +38,8 @@ void fragment(){
 [resource]
 shader = SubResource( 1 )
 shader_param/base_mask = Color( 0.79, 0, 1, 1 )
-shader_param/base_color = Color( 1, 0.537255, 0, 1 )
+shader_param/base_color = Color( 1, 0.584314, 0, 1 )
+shader_param/next_color = Color( 0, 0, 0, 1 )
+shader_param/color_transition = -1.0
 shader_param/window_mask = Color( 0, 0.69, 1, 1 )
 shader_param/window_color = Color( 0.47451, 0.721569, 0.737255, 1 )

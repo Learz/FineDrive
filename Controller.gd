@@ -23,13 +23,12 @@ var jumpCount = 0
 enum STATE {IDLE, ACCELERATING, BRAKING, REVERSING, JUMPING, DRIFTING}
 var state = STATE.IDLE
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	Global.controller = self
 	car.set_meta("car", true)
-	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 	# Forward speed based on the direction of the vehicle
 	speed = car.global_transform.basis.xform_inv(car.linear_velocity).z*-3.6

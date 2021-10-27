@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Entities/Gachas/Gacha.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Entities/Gachas/ColorGacha.gd" type="Script" id=2]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+resource_name = "Plastic"
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_color = Color( 0, 0, 0, 1 )
+metallic_specular = 0.0
+roughness = 0.7
+
+[node name="gacha" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Content" index="0"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Gacha_Bottom" parent="RigidBody_Bottom" index="1"]
+material/0 = SubResource( 2 )

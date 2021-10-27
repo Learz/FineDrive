@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/zylann.hterrain/hterrain_texture_set.gd" type="Script" id=1]
 [ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
 [ext_resource path="res://HTerrain/data.hterrain" type="Resource" id=3]
 [ext_resource path="res://Controller.tscn" type="PackedScene" id=4]
 [ext_resource path="res://models/Shine.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Entities/Gacha.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Entities/Gachas/Gacha.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Entities/Gachas/ColorGacha.tscn" type="PackedScene" id=7]
+[ext_resource path="res://models/Scenery/palm_01.glb" type="PackedScene" id=8]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 1 )
@@ -109,6 +111,14 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 447.056 )
 
 [node name="Shine5" parent="." instance=ExtResource( 5 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 281.855, 10.6351, 445.324 )
+
+[node name="GreenColorGacha" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 274.439, 11.428, 445.766 )
+color = Color( 0.0313726, 1, 0, 1 )
+
+[node name="RedColorGacha" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 274.3, 12.4591, 438.169 )
+color = Color( 1, 0, 0, 1 )
 
 [node name="gacha" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 278.044, 10.6351, 457.423 )
@@ -1332,3 +1342,18 @@ path_joined = false
 
 [node name="Controller" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 275.12, 10.0046, 458.947 )
+
+[node name="palm_01" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 270.148, 5.85443, 452.058 )
+
+[node name="palm_05" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.750111, 0, -0.661312, 0, 1, 0, 0.661312, 0, 0.750111, 270.27, 7.32224, 445.987 )
+
+[node name="palm_02" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.183814, 0, -0.982961, 0, 1, 0, 0.982961, 0, 0.183814, 278.917, 9.91879, 451.533 )
+
+[node name="palm_03" parent="." instance=ExtResource( 8 )]
+transform = Transform( 0.861168, 0, -0.50832, 0, 1, 0, 0.50832, 0, 0.861168, 271.066, 9.91879, 440.871 )
+
+[node name="palm_04" parent="." instance=ExtResource( 8 )]
+transform = Transform( -0.974835, 0, 0.222927, 0, 1, 0, -0.222927, 0, -0.974835, 277.563, 9.91879, 443.189 )

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Gacha.glb-a425618f12200f975d8aae013d1108c9.scn"
+path="res://.import/palm_01.glb-a52fae91a7921f4f61da7cb9ff8d3550.scn"
 
 [deps]
 
-source_file="res://Entities/Gacha.glb"
-dest_files=[ "res://.import/Gacha.glb-a425618f12200f975d8aae013d1108c9.scn" ]
+source_file="res://models/Scenery/palm_01.glb"
+dest_files=[ "res://.import/palm_01.glb-a52fae91a7921f4f61da7cb9ff8d3550.scn" ]
 
 [params]
 
