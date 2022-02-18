@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Controller.gd" type="Script" id=1]
 [ext_resource path="res://CameraTrack.gd" type="Script" id=2]
@@ -10,6 +10,12 @@
 [ext_resource path="res://UI/Glyphs/xbox/xbox_b.png" type="Texture" id=8]
 [ext_resource path="res://UI/Glyphs/xbox/xbox_a.png" type="Texture" id=9]
 [ext_resource path="res://UI/Glyphs/xbox/xbox_rt.png" type="Texture" id=10]
+[ext_resource path="res://UI/Glyphs/keyboard/kb_shift.png" type="Texture" id=11]
+[ext_resource path="res://UI/Glyphs/keyboard/kb_space.png" type="Texture" id=12]
+[ext_resource path="res://UI/Glyphs/keyboard/kb_w.png" type="Texture" id=13]
+[ext_resource path="res://UI/Prompt.tscn" type="PackedScene" id=14]
+[ext_resource path="res://UI/Glyphs/xbox/xbox_lt.png" type="Texture" id=15]
+[ext_resource path="res://UI/Glyphs/keyboard/kb_s.png" type="Texture" id=16]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, -1.02937, 0, 0, Vector2( 1, 0 ), -3.31636, 0.0, 0, 0 ]
@@ -41,7 +47,7 @@ height = 0.2
 radial_segments = 8
 rings = 4
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "Notification"
 length = 5.0
 tracks/0/type = "bezier"
@@ -65,20 +71,20 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1, 4, 5 )
 }
 
-[sub_resource type="DynamicFont" id=7]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-use_filter = true
-font_data = ExtResource( 6 )
-
 [sub_resource type="DynamicFont" id=8]
-size = 32
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=9]
+size = 32
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=10]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 use_filter = true
@@ -129,14 +135,14 @@ __meta__ = {
 }
 
 [node name="UIAnimator" type="AnimationPlayer" parent="UI"]
-anims/Notification = SubResource( 10 )
+anims/Notification = SubResource( 7 )
 
 [node name="DebugInfo" type="Label" parent="UI"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 40.0
 margin_bottom = 38.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 text = "Test : 12414
 Test2 : 131"
 __meta__ = {
@@ -175,7 +181,7 @@ margin_right = 340.0
 margin_bottom = 38.0
 grow_horizontal = 0
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "New Color Unlocked"
 align = 2
 valign = 1
@@ -188,112 +194,50 @@ margin_top = 42.0
 margin_right = 340.0
 margin_bottom = 70.0
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 text = "Notification description"
 align = 2
 valign = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+[node name="Prompts" type="VBoxContainer" parent="UI"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -234.0
-margin_top = -162.0
-margin_right = -40.0
-margin_bottom = -28.0
+margin_left = -219.0
+margin_top = -205.0
+margin_right = -25.0
+margin_bottom = -23.0
 custom_constants/separation = 10
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Prompt_Drift" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_right = 194.0
-margin_bottom = 38.0
-size_flags_vertical = 7
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Prompt_Drift" parent="UI/Prompts" instance=ExtResource( 14 )]
+prompt = "Drift"
+glyph_xbox = ExtResource( 8 )
+glyph_pc = ExtResource( 11 )
 
-[node name="PromptName" type="Label" parent="UI/VBoxContainer/Prompt_Drift"]
-margin_right = 152.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Drift"
-align = 2
-valign = 1
-
-[node name="PromptGlyph" type="TextureRect" parent="UI/VBoxContainer/Prompt_Drift"]
-margin_left = 156.0
-margin_right = 194.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-texture = ExtResource( 8 )
-expand = true
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Prompt_Jump" type="HBoxContainer" parent="UI/VBoxContainer"]
+[node name="Prompt_Jump" parent="UI/Prompts" instance=ExtResource( 14 )]
 margin_top = 48.0
-margin_right = 194.0
 margin_bottom = 86.0
-size_flags_vertical = 7
-__meta__ = {
-"_edit_use_anchors_": false
-}
+prompt = "Jump"
+glyph_xbox = ExtResource( 9 )
+glyph_pc = ExtResource( 12 )
 
-[node name="PromptName" type="Label" parent="UI/VBoxContainer/Prompt_Jump"]
-margin_right = 152.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Jump"
-align = 2
-valign = 1
-
-[node name="PromptGlyph" type="TextureRect" parent="UI/VBoxContainer/Prompt_Jump"]
-margin_left = 156.0
-margin_right = 194.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Prompt_Accelerate" type="HBoxContainer" parent="UI/VBoxContainer"]
+[node name="Prompt_Brake" parent="UI/Prompts" instance=ExtResource( 14 )]
 margin_top = 96.0
-margin_right = 194.0
 margin_bottom = 134.0
-size_flags_vertical = 7
-__meta__ = {
-"_edit_use_anchors_": false
-}
+prompt = "Brake"
+glyph_xbox = ExtResource( 15 )
+glyph_pc = ExtResource( 16 )
 
-[node name="PromptName" type="Label" parent="UI/VBoxContainer/Prompt_Accelerate"]
-margin_right = 152.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Accelerate"
-align = 2
-valign = 1
-
-[node name="PromptGlyph" type="TextureRect" parent="UI/VBoxContainer/Prompt_Accelerate"]
-margin_left = 156.0
-margin_right = 194.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Prompt_Accelerate" parent="UI/Prompts" instance=ExtResource( 14 )]
+margin_top = 144.0
+margin_bottom = 182.0
+prompt = "Accelerate"
+glyph_xbox = ExtResource( 10 )
+glyph_pc = ExtResource( 13 )
 
 [connection signal="animation_finished" from="UI/UIAnimator" to="UI" method="_on_UIAnimator_animation_finished"]
