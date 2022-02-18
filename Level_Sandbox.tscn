@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Controller.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/DebugGridMaterial.tres" type="Material" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://Textures/DebugRoad1024.png" type="Texture" id=4]
 [ext_resource path="res://Entities/Gachas/ColorGacha.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Entities/Ball.tscn" type="PackedScene" id=6]
+[ext_resource path="res://models/Modular_Level/tiles.tres" type="MeshLibrary" id=7]
+[ext_resource path="res://models/Scenery/palm_01.glb" type="PackedScene" id=8]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 3 )
@@ -22,14 +24,18 @@ albedo_texture = ExtResource( 4 )
 
 [node name="Level" type="Spatial"]
 
-[node name="Ground" type="CSGBox" parent="."]
+[node name="Skybox" type="Spatial" parent="."]
+
+[node name="Map" type="Spatial" parent="."]
+
+[node name="Ground" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 use_collision = true
 width = 128.0
 depth = 128.0
 material = SubResource( 1 )
 
-[node name="Platform1" type="CSGBox" parent="."]
+[node name="Platform1" type="CSGBox" parent="Map"]
 transform = Transform( 1, 0, 0, 0, 1, -1.49012e-08, 0, 1.49012e-08, 1, 0, -1, -7 )
 use_collision = true
 width = 4.0
@@ -37,7 +43,7 @@ height = 4.0
 depth = 6.0
 material = ExtResource( 2 )
 
-[node name="Platform2" type="CSGBox" parent="."]
+[node name="Platform2" type="CSGBox" parent="Map"]
 transform = Transform( -5.96046e-08, -1.49012e-08, -1, 0, 1, -1.49012e-08, 1, -8.88178e-16, -2.98023e-08, 1, -1, -16 )
 use_collision = true
 width = 4.0
@@ -45,7 +51,7 @@ height = 4.0
 depth = 6.0
 material = ExtResource( 2 )
 
-[node name="Platform3" type="CSGBox" parent="."]
+[node name="Platform3" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, -1.49012e-08, -1, 0, 1, -1.49012e-08, 1, -6.5135e-16, -4.37114e-08, 11, 1, -16 )
 use_collision = true
 width = 4.0
@@ -53,7 +59,7 @@ height = 4.0
 depth = 6.0
 material = ExtResource( 2 )
 
-[node name="Platform4" type="CSGBox" parent="."]
+[node name="Platform4" type="CSGBox" parent="Map"]
 transform = Transform( -4.2222e-08, 0.258819, -0.965925, 1.13133e-08, 0.965925, 0.258819, 1, -6.5135e-16, -4.37114e-08, -32, -4.76837e-07, -16 )
 use_collision = true
 width = 4.0
@@ -61,7 +67,7 @@ height = 4.0
 depth = 18.0
 material = ExtResource( 2 )
 
-[node name="Platform8" type="CSGBox" parent="."]
+[node name="Platform8" type="CSGBox" parent="Map"]
 transform = Transform( -4.37114e-08, 0.173648, -0.984807, 0, 0.984807, 0.173648, 1, 7.5904e-09, -4.30473e-08, -30, -1, -22 )
 use_collision = true
 width = 4.0
@@ -69,7 +75,7 @@ height = 4.0
 depth = 18.0
 material = ExtResource( 2 )
 
-[node name="Platform5" type="CSGBox" parent="."]
+[node name="Platform5" type="CSGBox" parent="Map"]
 transform = Transform( -3.78552e-08, 0.5, -0.866025, 2.18557e-08, 0.866025, 0.5, 1, -6.5135e-16, -4.37114e-08, -30, 0, -10 )
 use_collision = true
 width = 4.0
@@ -77,7 +83,7 @@ height = 4.0
 depth = 18.0
 material = ExtResource( 2 )
 
-[node name="Platform6" type="CSGBox" parent="."]
+[node name="Platform6" type="CSGBox" parent="Map"]
 transform = Transform( -3.09086e-08, 0.707106, -0.707106, 3.09086e-08, 0.707106, 0.707106, 1, -6.5135e-16, -4.37114e-08, -29, 0, -4 )
 use_collision = true
 width = 4.0
@@ -85,7 +91,7 @@ height = 4.0
 depth = 18.0
 material = ExtResource( 2 )
 
-[node name="Platform7" type="CSGBox" parent="."]
+[node name="Platform7" type="CSGBox" parent="Map"]
 transform = Transform( -2.18557e-08, 0.866025, -0.5, 3.78552e-08, 0.5, 0.866025, 1, -6.5135e-16, -4.37114e-08, -29, 0, 2 )
 use_collision = true
 width = 4.0
@@ -93,10 +99,28 @@ height = 4.0
 depth = 18.0
 material = ExtResource( 2 )
 
+[node name="GridMap" type="GridMap" parent="Map"]
+mesh_library = ExtResource( 7 )
+cell_size = Vector3( 2, 1, 2 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 0, 10, 1048583, 1, 10, 1048583, 2, 10, 1048583, 4, 10, 1048583, 5, 10, 1048583, 6, 10, 1048583, 65536, 11, 1048583, 65537, 11, 1048583, 65540, 11, 1048583, 65541, 11, 1048583, 65542, 11, 1048583, 65536, 12, 0, 65537, 12, 0, 65540, 12, 0, 65541, 12, 0, 65542, 12, 0, 65545, 12, 0, 65546, 12, 0, 65547, 12, 0, 65548, 12, 0, 65549, 12, 0, 65550, 12, 0, 65551, 12, 0, 65552, 12, 0, 65553, 12, 655364, 65554, 12, 0, 131058, 12, 0, 131059, 12, 0, 131060, 12, 0, 131061, 12, 0, 131062, 12, 0, 131063, 12, 0, 131064, 12, 0, 131065, 12, 0, 131066, 12, 0, 131067, 12, 0, 131068, 12, 0, 131069, 12, 0, 131070, 12, 0, 131071, 12, 0, 65536, 13, 0, 65537, 13, 0, 65540, 13, 0, 65541, 13, 0, 65542, 13, 0, 65545, 13, 0, 65546, 13, 0, 65547, 13, 0, 65548, 13, 655364, 65549, 13, 0, 65550, 13, 0, 65551, 13, 0, 65552, 13, 0, 65553, 13, 0, 65554, 13, 0, 131058, 13, 0, 131059, 13, 0, 131060, 13, 0, 131061, 13, 0, 131062, 13, 0, 131063, 13, 0, 131064, 13, 0, 131065, 13, 0, 131066, 13, 0, 131067, 13, 0, 131068, 13, 0, 131069, 13, 0, 131070, 13, 0, 131071, 13, 0, 65536, 14, 0, 65537, 14, 0, 65540, 14, 0, 65541, 14, 0, 65542, 14, 0, 65545, 14, 0, 65546, 14, 0, 65547, 14, 0, 65548, 14, 0, 65549, 14, 0, 65550, 14, 0, 65551, 14, 0, 65552, 14, 0, 65553, 14, 0, 65554, 14, 0, 131058, 14, 0, 131059, 14, 0, 131060, 14, 0, 131061, 14, 0, 131062, 14, 0, 131063, 14, 0, 131064, 14, 0, 131065, 14, 0, 131066, 14, 0, 131067, 14, 0, 131068, 14, 0, 131069, 14, 0, 131070, 14, 0, 131071, 14, 0, 131076, 14, 1048583, 65536, 15, 0, 65537, 15, 0, 65545, 15, 0, 65546, 15, 0, 65547, 15, 0, 65548, 15, 0, 65549, 15, 0, 65550, 15, 0, 65551, 15, 0, 65552, 15, 655364, 65553, 15, 0, 65554, 15, 0, 131058, 15, 0, 131059, 15, 0, 131060, 15, 0, 131061, 15, 0, 131062, 15, 0, 131063, 15, 0, 131064, 15, 0, 131065, 15, 0, 131066, 15, 0, 131067, 15, 0, 131068, 15, 0, 131069, 15, 0, 131070, 15, 0, 131071, 15, 0, 65536, 16, 0, 65537, 16, 0, 65545, 16, 0, 65546, 16, 655364, 65547, 16, 0, 65548, 16, 0, 65549, 16, 0, 65550, 16, 0, 65551, 16, 0, 65552, 16, 0, 65553, 16, 0, 65554, 16, 0, 131058, 16, 0, 131059, 16, 0, 131060, 16, 0, 131061, 16, 0, 131062, 16, 0, 131063, 16, 0, 131064, 16, 0, 131065, 16, 0, 131066, 16, 0, 131067, 16, 0, 131068, 16, 0, 131069, 16, 0, 131070, 16, 0, 131071, 16, 0, 196599, 16, 655363, 196600, 16, 1048583, 196601, 16, 1048579, 65536, 17, 0, 65537, 17, 0, 65540, 17, 0, 65541, 17, 1048576, 65542, 17, 1048576, 65545, 17, 0, 65546, 17, 0, 65547, 17, 0, 65548, 17, 0, 65549, 17, 655364, 65550, 17, 0, 65551, 17, 0, 65552, 17, 0, 65553, 17, 0, 65554, 17, 0, 131058, 17, 0, 131059, 17, 0, 131060, 17, 0, 131061, 17, 0, 131062, 17, 0, 131063, 17, 0, 131064, 17, 0, 131065, 17, 0, 131066, 17, 0, 131067, 17, 0, 131068, 17, 0, 131069, 17, 0, 131070, 17, 0, 131071, 17, 0, 196598, 17, 655363, 196602, 17, 1048579, 262135, 17, 655368, 262136, 17, 1048583, 262137, 17, 1048584, 65536, 18, 0, 65537, 18, 0, 65540, 18, 0, 65541, 18, 655360, 65542, 18, 655360, 65545, 18, 0, 65546, 18, 0, 65547, 18, 0, 65548, 18, 0, 65549, 18, 0, 65550, 18, 0, 65551, 18, 0, 65552, 18, 0, 65553, 18, 0, 65554, 18, 655364, 131058, 18, 0, 131059, 18, 0, 131060, 18, 0, 131061, 18, 0, 131062, 18, 0, 131063, 18, 0, 131064, 18, 0, 131065, 18, 0, 131066, 18, 0, 131067, 18, 0, 131068, 18, 0, 131069, 18, 0, 131070, 18, 0, 131071, 18, 0, 131081, 18, 7, 65536, 19, 0, 65537, 19, 0, 65540, 19, 0, 65541, 19, 0, 65542, 19, 655360, 65545, 19, 0, 65546, 19, 0, 65547, 19, 0, 65548, 19, 0, 65549, 19, 0, 65550, 19, 0, 65551, 19, 0, 65552, 19, 0, 65553, 19, 0, 65554, 19, 0, 131058, 19, 0, 131059, 19, 0, 131060, 19, 0, 131061, 19, 0, 131062, 19, 0, 131063, 19, 0, 131064, 19, 0, 131065, 19, 0, 131066, 19, 0, 131067, 19, 0, 131068, 19, 0, 131069, 19, 0, 131070, 19, 0, 131071, 19, 0, 131078, 19, 655367, 65536, 20, 0, 65537, 20, 0, 65545, 20, 0, 65546, 20, 0, 65547, 20, 0, 65548, 20, 0, 65549, 20, 0, 65550, 20, 0, 65551, 20, 655364, 65552, 20, 0, 65553, 20, 0, 65554, 20, 0, 131058, 20, 0, 131059, 20, 0, 131060, 20, 0, 131061, 20, 0, 131062, 20, 0, 131063, 20, 0, 131064, 20, 0, 131065, 20, 0, 131066, 20, 0, 131067, 20, 0, 131068, 20, 0, 131069, 20, 0, 131070, 20, 0, 131071, 20, 0, 65536, 21, 0, 65537, 21, 0, 65545, 21, 0, 65546, 21, 0, 65547, 21, 655364, 65548, 21, 0, 65549, 21, 0, 65550, 21, 0, 65551, 21, 0, 65552, 21, 0, 65553, 21, 0, 65554, 21, 0, 131058, 21, 0, 131059, 21, 0, 131060, 21, 0, 131061, 21, 0, 131062, 21, 0, 131063, 21, 0, 131064, 21, 0, 131065, 21, 0, 131066, 21, 0, 131067, 21, 0, 131068, 21, 0, 131069, 21, 0, 131070, 21, 0, 131071, 21, 0, 65536, 22, 0, 65537, 22, 0, 65545, 22, 0, 65546, 22, 0, 65547, 22, 0, 65548, 22, 0, 65549, 22, 0, 65550, 22, 0, 65551, 22, 0, 65552, 22, 0, 65553, 22, 0, 65554, 22, 0, 131058, 22, 0, 131059, 22, 0, 131060, 22, 0, 131061, 22, 0, 131062, 22, 0, 131063, 22, 0, 131064, 22, 0, 131065, 22, 0, 131066, 22, 0, 131067, 22, 0, 131068, 22, 0, 131069, 22, 0, 131070, 22, 0, 131071, 22, 0, 65536, 23, 0, 65537, 23, 0, 65538, 23, 0, 65539, 23, 0, 65540, 23, 0, 65541, 23, 0, 65542, 23, 0, 65543, 23, 0, 65544, 23, 0, 65545, 23, 0, 65546, 23, 0, 65547, 23, 0, 65548, 23, 0, 65549, 23, 0, 65550, 23, 0, 65551, 23, 0, 65552, 23, 0, 65553, 23, 0, 65554, 23, 0, 131058, 23, 0, 131059, 23, 0, 131060, 23, 0, 131061, 23, 0, 131062, 23, 0, 131063, 23, 0, 131064, 23, 0, 131065, 23, 0, 131066, 23, 0, 131067, 23, 0, 131068, 23, 0, 131069, 23, 0, 131070, 23, 0, 131071, 23, 0, 65536, 24, 0, 65537, 24, 0, 65538, 24, 0, 65539, 24, 0, 65540, 24, 0, 65541, 24, 0, 65542, 24, 0, 65543, 24, 0, 65544, 24, 0, 65545, 24, 0, 65546, 24, 0, 65547, 24, 0, 65548, 24, 0, 65549, 24, 0, 65550, 24, 655364, 65551, 24, 0, 65552, 24, 0, 65553, 24, 0, 65554, 24, 0, 131058, 24, 0, 131059, 24, 0, 131060, 24, 0, 131061, 24, 0, 131062, 24, 0, 131063, 24, 0, 131064, 24, 0, 131065, 24, 0, 131066, 24, 0, 131067, 24, 0, 131068, 24, 0, 131069, 24, 0, 131070, 24, 0, 131071, 24, 0, 65536, 25, 0, 65537, 25, 0, 65538, 25, 0, 65539, 25, 0, 65540, 25, 0, 65541, 25, 0, 65542, 25, 0, 65543, 25, 0, 65544, 25, 0, 65545, 25, 0, 65546, 25, 0, 65547, 25, 0, 65548, 25, 0, 65549, 25, 0, 65550, 25, 0, 65551, 25, 0, 65552, 25, 0, 65553, 25, 0, 65554, 25, 0, 131058, 25, 0, 131059, 25, 0, 131060, 25, 0, 131061, 25, 0, 131062, 25, 0, 131063, 25, 0, 131064, 25, 0, 131065, 25, 0, 131066, 25, 0, 131067, 25, 0, 131068, 25, 0, 131069, 25, 0, 131070, 25, 0, 131071, 25, 0 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 2, 0 )
+}
+
+[node name="palm_01" parent="Map" instance=ExtResource( 8 )]
+transform = Transform( -0.111122, -0.202821, -0.97289, -0.0230163, 0.979216, -0.201511, 0.99354, 0, -0.113481, -6.51286, 0.0925565, 44 )
+
+[node name="palm_02" parent="Map" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 0.985013, 0.172479, 0, -0.172479, 0.985013, -13, -1.28834, 41.6666 )
+
 [node name="Controller" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148045, 0 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
+[node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 6.1797, 5.36232, 4.37889 )
 shadow_enabled = true
 directional_shadow_blend_splits = true
@@ -105,7 +129,7 @@ directional_shadow_blend_splits = true
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 45, 0, -24 )
 curve = SubResource( 2 )
 
-[node name="CSGPolygon" type="CSGPolygon" parent="."]
+[node name="RoadTest" type="CSGPolygon" parent="."]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 45, 0, -24 )
 use_collision = true
 invert_faces = true
@@ -125,154 +149,224 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, -3 )
 [node name="BallBig" parent="." instance=ExtResource( 6 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -11, 2.39306, -3 )
 
-[node name="gacha" parent="." instance=ExtResource( 5 )]
+[node name="Gachas" type="Spatial" parent="."]
+
+[node name="gacha" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7 )
 color = Color( 1, 0, 0, 1 )
+color_name = "Red"
 
-[node name="gacha2" parent="." instance=ExtResource( 5 )]
+[node name="gacha39" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 30 )
+color = Color( 0.792157, 1, 0.541176, 1 )
+color_name = "Pastelle Green"
+
+[node name="gacha40" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.93029, 2, 37.5755 )
+color = Color( 0.74902, 0.196078, 0.376471, 1 )
+color_name = "Velvet"
+
+[node name="gacha44" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5813, 2, 27.3631 )
+color = Color( 0.462745, 0.376471, 0.266667, 1 )
+color_name = "Brown"
+
+[node name="gacha41" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.1158, 2, 43.0133 )
+color = Color( 1, 0.890196, 0, 1 )
+color_name = "Yellow"
+
+[node name="gacha42" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.2641, 2, 27.0251 )
+color = Color( 0.839216, 0.839216, 0.839216, 1 )
+color_name = "White"
+
+[node name="gacha43" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.591, 2, 49.0289 )
+color = Color( 0.443137, 0.443137, 0.443137, 1 )
+color_name = "Gray"
+
+[node name="gacha2" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -16 )
 color = Color( 0, 1, 0.0156863, 1 )
+color_name = "Green"
 
-[node name="gacha3" parent="." instance=ExtResource( 5 )]
+[node name="gacha3" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 3, -16 )
 color = Color( 0, 0.180392, 1, 1 )
+color_name = "Blue"
 
-[node name="gacha5" parent="." instance=ExtResource( 5 )]
+[node name="gacha5" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -16 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha6" parent="." instance=ExtResource( 5 )]
+[node name="gacha6" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -20 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha7" parent="." instance=ExtResource( 5 )]
+[node name="gacha7" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -24 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha8" parent="." instance=ExtResource( 5 )]
+[node name="gacha8" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -28 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha9" parent="." instance=ExtResource( 5 )]
+[node name="gacha9" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -32 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha10" parent="." instance=ExtResource( 5 )]
+[node name="gacha10" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -36 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha14" parent="." instance=ExtResource( 5 )]
+[node name="gacha14" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.193995, -40 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha15" parent="." instance=ExtResource( 5 )]
+[node name="gacha15" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5577, 0.193995, -44 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha16" parent="." instance=ExtResource( 5 )]
+[node name="gacha16" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0.193995, -48 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha17" parent="." instance=ExtResource( 5 )]
+[node name="gacha17" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 0.606433, 0, -0.795135, 0, 1, 0, 0.795135, 0, 0.606433, 35.6084, 0.193995, -51.2247 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha18" parent="." instance=ExtResource( 5 )]
+[node name="gacha18" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 0.606433, 0, -0.795135, 0, 1, 0, 0.795135, 0, 0.606433, 39.9871, 0.193995, -52.4118 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha19" parent="." instance=ExtResource( 5 )]
+[node name="gacha19" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 0.606433, 0, -0.795135, 0, 1, 0, 0.795135, 0, 0.606433, 44.8547, 0.193995, -51.8467 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha11" parent="." instance=ExtResource( 5 )]
+[node name="gacha11" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0.193995, -4 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha12" parent="." instance=ExtResource( 5 )]
+[node name="gacha12" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 0.193995, -8 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha13" parent="." instance=ExtResource( 5 )]
+[node name="gacha13" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.193995, -12 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha20" parent="." instance=ExtResource( 5 )]
+[node name="gacha20" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 54.9835, 0.193995, -30.627 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha21" parent="." instance=ExtResource( 5 )]
+[node name="gacha21" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 55.2028, 0.193995, -26.6326 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha22" parent="." instance=ExtResource( 5 )]
+[node name="gacha22" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 55.3175, 0.193995, -22.6383 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha23" parent="." instance=ExtResource( 5 )]
+[node name="gacha23" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 55.999, 0.193995, -18.6439 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha24" parent="." instance=ExtResource( 5 )]
+[node name="gacha24" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 56.2116, 0.193995, -14.6496 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha25" parent="." instance=ExtResource( 5 )]
+[node name="gacha25" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 56.4241, 0.193995, -10.6552 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha26" parent="." instance=ExtResource( 5 )]
+[node name="gacha26" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 55.6381, 0.193995, -6.60773 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha27" parent="." instance=ExtResource( 5 )]
+[node name="gacha27" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 54.2951, 0.193995, -2.53061 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha28" parent="." instance=ExtResource( 5 )]
+[node name="gacha28" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 52.4833, 0.193995, 2.34396 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha29" parent="." instance=ExtResource( 5 )]
+[node name="gacha29" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.647828, 0, 0.761787, 0, 1, 0, -0.761787, 0, -0.647828, 48.9597, 0.193995, 5.44859 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha30" parent="." instance=ExtResource( 5 )]
+[node name="gacha30" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.647828, 0, 0.761787, 0, 1, 0, -0.761787, 0, -0.647828, 44.3275, 0.193995, 7.02649 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha31" parent="." instance=ExtResource( 5 )]
+[node name="gacha31" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.647828, 0, 0.761787, 0, 1, 0, -0.761787, 0, -0.647828, 39.4367, 0.193995, 6.11788 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha37" parent="." instance=ExtResource( 5 )]
+[node name="gacha37" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.647828, 0, 0.761787, 0, 1, 0, -0.761787, 0, -0.647828, 34.6457, 0.193995, 3.71099 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha38" parent="." instance=ExtResource( 5 )]
+[node name="gacha38" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.647828, 0, 0.761787, 0, 1, 0, -0.761787, 0, -0.647828, 30.831, 0.193995, 0.10252 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha32" parent="." instance=ExtResource( 5 )]
+[node name="gacha32" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 53.273, 0.193995, -42.5037 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha35" parent="." instance=ExtResource( 5 )]
+[node name="gacha35" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 51.4628, 0.193995, -46.2803 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha36" parent="." instance=ExtResource( 5 )]
+[node name="gacha36" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 48.3401, 0.193995, -49.5928 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha33" parent="." instance=ExtResource( 5 )]
+[node name="gacha33" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 53.9377, 0.193995, -38.5625 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha34" parent="." instance=ExtResource( 5 )]
+[node name="gacha34" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( -0.998587, 0, -0.0531377, 0, 1, 0, 0.0531377, 0, -0.998587, 54.7958, 0.193995, -34.6213 )
 color = Color( 0.780392, 0, 1, 1 )
+color_name = "DEV_COLOR"
 
-[node name="gacha4" parent="." instance=ExtResource( 5 )]
+[node name="gacha4" parent="Gachas" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31.8128, 8.94986, 2 )
 color = Color( 0.964706, 0.819608, 0.0352941, 1 )
+color_name = "Gold"

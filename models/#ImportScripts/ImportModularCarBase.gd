@@ -27,8 +27,8 @@ func iterate(node):
 			node.transform.origin = Vector3.ZERO
 			if "Front" in node.name:
 				new_node.use_as_steering = true
-			if "Rear" in node.name:
 				new_node.use_as_traction = true
+#			if "Rear" in node.name:
 #		elif "body" in node.name:
 #			node.get_parent().remove_child(node)
 #			rootScene.add_child(node)

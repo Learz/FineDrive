@@ -25,16 +25,20 @@ func _process(delta):
 		$Content.global_transform.origin.z = lerp(original_position.z, car.global_transform.origin.z, time/dur)
 		$Content.rotate(Vector3(0,1,0), 2*delta)
 		if time == 3:
-			$RigidBody_Bottom/Gacha_Bottom.scale -= Vector3(0.2,0.2,0.2) * delta
-			$RigidBody_Top/Gacha_Top.scale -= Vector3(0.2,0.2,0.2) * delta
+			$RigidBody_Bottom/Gacha_Bottom.scale -= Vector3(0.2,0.2,0.2) * delta * 10
+			$RigidBody_Top/Gacha_Top.scale -= Vector3(0.2,0.2,0.2) * delta * 10
 			if $RigidBody_Bottom/Gacha_Bottom.scale <= Vector3.ZERO:
 				queue_free()
 			_on_item_get()
 
 func _on_item_get():
 	if got:
-		return
+		return true
 	got = true
+	return false
+	
+func notify():
+	Global.UI.notify("Got a new part!", "Let's try it out.")
 
 func _on_HitArea_body_entered(body):
 	if body.has_meta("car") and not collided:
@@ -44,3 +48,4 @@ func _on_HitArea_body_entered(body):
 		$RigidBody_Bottom.set_collision_mask_bit(0,true)
 		$RigidBody_Top.set_collision_mask_bit(0,true)
 		collided = true
+		notify()

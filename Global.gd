@@ -17,6 +17,8 @@ var right_joypad_vec := Vector2.ZERO
 
 var tween = Tween.new()
 
+var UI
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(tween)
@@ -42,6 +44,7 @@ func _process(delta):
 	
 	time += delta
 	debug["FPS"] = Engine.get_frames_per_second()
+#	debug["Resolution"] = get_viewport().size
 
 # TODO : Add inventory system (idk if a class is the best option tho)
 class Inventory:

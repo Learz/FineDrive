@@ -13,12 +13,15 @@ onready var wheel_backRight := $Car_Base/Wheel_Rear_R_Pos
 const MAX_ENGINE_FORCE = 300.0
 const MAX_SPEED = 50.0
 const MAX_BRAKE = 5.0
-const MAX_STEERING = 0.5
+const MAX_STEERING = 1.0
 const JUMP_FORCE = 200.0
 const AIR_CONTROL_FORCE = 3.0
 
 var speed = 0
 var jumpCount = 0
+
+var steering_target = 0
+var friction_target = 0
 
 enum STATE {IDLE, ACCELERATING, BRAKING, REVERSING, JUMPING, DRIFTING}
 var state = STATE.IDLE
@@ -38,7 +41,6 @@ func _process(delta):
 	state = STATE.IDLE
 	car.engine_force = 0
 	car.brake = 0
-	car.steering = 0
 	
 	if wheel_on_ground():
 		# Reset the jump counter (double jump)
@@ -63,10 +65,12 @@ func _process(delta):
 		
 		#--STEERING--
 		if Input.is_action_pressed("steer_left"):
-			car.steering = Input.get_action_strength("steer_left") * MAX_STEERING * turning_curve.interpolate(abs(speed)/MAX_SPEED)
-		if Input.is_action_pressed("steer_right"):
-			car.steering = Input.get_action_strength("steer_right") * -MAX_STEERING * turning_curve.interpolate(abs(speed)/MAX_SPEED)
-	
+			steering_target = Input.get_action_strength("steer_left") * MAX_STEERING * turning_curve.interpolate(abs(speed)/MAX_SPEED)
+		elif Input.is_action_pressed("steer_right"):
+			steering_target = Input.get_action_strength("steer_right") * -MAX_STEERING * turning_curve.interpolate(abs(speed)/MAX_SPEED)
+		else:
+			steering_target = 0
+			
 		#--ACTIONS--
 		if Input.is_action_just_pressed("jump") and wheel_on_ground():
 			car.apply_central_impulse(Vector3(0,JUMP_FORCE,0))
@@ -88,11 +92,11 @@ func _process(delta):
 			# If not going faster than half the max speed in any direction, apply impulse to help drift
 			if car.linear_velocity.length()*3.6 < MAX_SPEED / 2:
 				car.apply_central_impulse(car.global_transform.basis * Vector3(Global.left_joypad_vec.x*10,0,-MAX_SPEED/5))
-		else:
-			wheel_frontLeft.wheel_friction_slip = 10.5
-			wheel_frontRight.wheel_friction_slip = 10.5
-			wheel_backLeft.wheel_friction_slip = 10.5
-			wheel_backRight.wheel_friction_slip = 10.5
+#		else:
+#			wheel_frontLeft.wheel_friction_slip = 10.5
+#			wheel_frontRight.wheel_friction_slip = 10.5
+#			wheel_backLeft.wheel_friction_slip = 10.5
+#			wheel_backRight.wheel_friction_slip = 10.5
 	else:
 		state = STATE.JUMPING
 		var ljv = Global.left_joypad_vec
@@ -106,11 +110,26 @@ func _process(delta):
 			jumpCount += 1
 			car.apply_central_impulse(car.global_transform.basis * Vector3(ljv.x*JUMP_FORCE,0,ljv.y*JUMP_FORCE) + Vector3(0,JUMP_FORCE*(1-ljv.length()),0))
 	
+	if state == STATE.DRIFTING:
+		$Car_Base/ParticlesLeft.emitting = wheel_backLeft.is_in_contact()
+		$Car_Base/ParticlesRight.emitting = wheel_backRight.is_in_contact()
+	else:
+		$Car_Base/ParticlesLeft.emitting = false
+		$Car_Base/ParticlesRight.emitting = false
 	
 	Global.debug["Speed"] = "%05.2f" % float(car.linear_velocity.length()*3.6)
 	Global.debug["KM/H"] = speed
 	Global.debug["Wheel Rotation"] = car.steering
 	Global.debug["State"] = STATE.keys()[state]
+
+func _physics_process(delta):
+	car.steering = lerp(car.steering, steering_target, delta * 10.0)
+	
+	if state != STATE.DRIFTING:
+		wheel_frontLeft.wheel_friction_slip = lerp(wheel_frontLeft.wheel_friction_slip, 10.5, delta * 0.2)
+		wheel_frontRight.wheel_friction_slip = lerp(wheel_frontRight.wheel_friction_slip, 10.5, delta * 0.2)
+		wheel_backLeft.wheel_friction_slip = lerp(wheel_backLeft.wheel_friction_slip, 10.5, delta * 0.2)
+		wheel_backRight.wheel_friction_slip = lerp(wheel_backRight.wheel_friction_slip, 10.5, delta * 0.2)
 
 # Return true if any wheel is touching the ground
 func wheel_on_ground():

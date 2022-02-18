@@ -2,6 +2,7 @@ tool
 extends Gacha
 
 export (Color) var color setget set_color
+export (String) var color_name
 
 # TODO : Transfer color to global inventory and change car color
 func _ready():
@@ -14,8 +15,13 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func notify():
+	Global.UI.notify("Got a new color!", color_name)
+
 func _on_item_get():
-	._on_item_get()
+	var ret = ._on_item_get()
+	if ret:
+		return
 	car.set_color(color)
 
 func set_color(v):
