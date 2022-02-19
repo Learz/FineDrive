@@ -40,7 +40,6 @@ func set_color(col : Color):
 	if $Base/Body_Pos.get_child_count() > 0:
 		var material = $Base/Body_Pos.get_child(0).get_child(0).get_surface_material(0)
 		material.set_shader_param("next_color", col)
-		# FIX : Tween not working, Make tween local
 		Global.tween.interpolate_method(self, "shader_param_transition", 0.0, 1.0, 3)
 		Global.tween.start()
 		yield(Global.tween, "tween_completed")

@@ -18,6 +18,8 @@ var right_joypad_vec := Vector2.ZERO
 var tween = Tween.new()
 
 var UI
+var displayHUD = false setget set_display_HUD
+var paused = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,6 +48,9 @@ func _process(delta):
 	debug["FPS"] = Engine.get_frames_per_second()
 #	debug["Resolution"] = get_viewport().size
 
-# TODO : Add inventory system (idk if a class is the best option tho)
-class Inventory:
-	var BodyColors = [Color(1,0.5,0)]
+func set_display_HUD(val):
+	displayHUD = val
+	UI.visible = displayHUD
+
+func quit():
+	get_tree().quit()

@@ -4,7 +4,7 @@ extends Gacha
 export (Color) var color setget set_color
 export (String) var color_name
 
-# TODO : Transfer color to global inventory and change car color
+# TODO : Transfer color to global inventory
 func _ready():
 	var material = $RigidBody_Bottom/Gacha_Bottom.mesh.surface_get_material(0)
 	var instance_material = material.duplicate()

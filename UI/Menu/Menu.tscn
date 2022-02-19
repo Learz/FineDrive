@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/UI_Theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/Menu/MenuButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Menu/Menu.gd" type="Script" id=3]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1024.0
+color = Color( 0, 0, 0, 0.509804 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="VBoxContainer" parent="MainMenu"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = -228.0
+margin_right = 240.0
+margin_bottom = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" parent="MainMenu/Buttons" instance=ExtResource( 2 )]
+margin_right = 200.0
+title = "Start"
+type = 4
+
+[node name="OptionsButton" parent="MainMenu/Buttons" instance=ExtResource( 2 )]
+margin_top = 64.0
+margin_right = 200.0
+margin_bottom = 124.0
+title = "Options"
+link = "Options"
+type = 3
+
+[node name="QuitButton" parent="MainMenu/Buttons" instance=ExtResource( 2 )]
+margin_top = 128.0
+margin_right = 200.0
+margin_bottom = 188.0
+title = "Quit"
+
+[node name="Options" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1024.0
+margin_right = 1024.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsTitle" type="Label" parent="Options"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 151.0
+margin_bottom = 78.0
+text = "Options"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="VBoxContainer" parent="Options"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = -100.0
+margin_right = 240.0
+margin_bottom = -40.0
+
+[node name="BackButton" parent="Options/Buttons" instance=ExtResource( 2 )]
+margin_right = 200.0
+title = "Back"
+link = "MainMenu"
+type = 3
+
+[node name="Tween" type="Tween" parent="."]

@@ -33,6 +33,8 @@ func _ready():
 
 
 func _process(delta):
+	if Global.paused:
+		return
 	# Forward speed based on the direction of the vehicle
 	speed = car.global_transform.basis.xform_inv(car.linear_velocity).z*-3.6
 	
@@ -125,6 +127,7 @@ func _process(delta):
 func _physics_process(delta):
 	car.steering = lerp(car.steering, steering_target, delta * 10.0)
 	
+	#If drifting stopped, slowly get traction back to normal
 	if state != STATE.DRIFTING:
 		wheel_frontLeft.wheel_friction_slip = lerp(wheel_frontLeft.wheel_friction_slip, 10.5, delta * 0.2)
 		wheel_frontRight.wheel_friction_slip = lerp(wheel_frontRight.wheel_friction_slip, 10.5, delta * 0.2)
