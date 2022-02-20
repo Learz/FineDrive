@@ -1,0 +1,542 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Entities/Car/Controller.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Textures/DebugGridMaterial.tres" type="Material" id=2]
+[ext_resource path="res://Textures/DebugGround1024.png" type="Texture" id=3]
+[ext_resource path="res://Textures/DebugRoad1024.png" type="Texture" id=4]
+[ext_resource path="res://Entities/Gachas/ColorGacha.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Entities/Ball.tscn" type="PackedScene" id=6]
+[ext_resource path="res://models/Modular_Level/tiles.tres" type="MeshLibrary" id=7]
+[ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/Menu/Menu.tscn" type="PackedScene" id=10]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 3 )
+uv1_scale = Vector3( -16, 16, 16 )
+
+[sub_resource type="PrismMesh" id=2]
+size = Vector3( 12, 3, 4 )
+
+[sub_resource type="PrismMesh" id=3]
+size = Vector3( 24, 6, 4 )
+
+[sub_resource type="PrismMesh" id=4]
+size = Vector3( 33, 6, 4 )
+
+[sub_resource type="Curve3D" id=5]
+_data = {
+"points": PoolVector3Array( 3.86783, 0, 0.0970488, -3.86783, 0, -0.0970488, -2.85483, 0, -10.143, 3.07741, 0, -2.07662, -3.07741, 0, 2.07662, -20.8049, 0, -7.43706, -2.08662, 0, -7.65061, 2.08662, 0, 7.65061, -28.2362, 0, 7.04027, -7.19808, 0, -0.166428, 7.19808, 0, 0.166428, -7.01026, 0, 18.4734, -5.88072, 0, 1.34855, 5.88072, 0, -1.34855, 16.5048, 0, 17.0243, -1.9286, 0, 3.06113, 1.9286, 0, -3.06113, 27.439, 0, 11.162, 1.95765, 0, 4.64198, -1.95765, 0, -4.64198, 30.4689, 0, -1.87999, 3.34088, 0, 1.21681, -3.34088, 0, -1.21681, 22.8282, 0, -8.86205, 2.94568, 0, 0.294653, -2.94568, 0, -0.294653, 12.7503, 0, -11.1016, 3.86783, 0, 0.0970488, -3.86783, 0, -0.0970488, -2.85483, 0, -10.143 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 4 )
+
+[node name="Level" type="Spatial"]
+
+[node name="Skybox" type="Spatial" parent="."]
+
+[node name="Map" type="Spatial" parent="."]
+
+[node name="Ground" type="CSGBox" parent="Map"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+use_collision = true
+width = 256.0
+depth = 256.0
+material = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CSGBox" type="CSGBox" parent="Map/Ground"]
+transform = Transform( -8.74228e-08, 0, 2, 0, 2, 0, -2, 0, -8.74228e-08, 11.9, -1, -124 )
+operation = 2
+width = 44.0
+height = 6.0
+depth = 56.0
+
+[node name="Platform2" type="CSGBox" parent="Map"]
+transform = Transform( 2, 2.26267e-08, 2.48393e-08, -3.08536e-08, 1.93185, -0.517638, 2.77245e-08, 0.517638, 1.93185, 11.9, -2, -36 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 10.0
+material = ExtResource( 2 )
+
+[node name="Platform4" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 11.9, 0, -58 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform7" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 39.9, 0, -60 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform10" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 47.9, 4, -60 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform11" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 47.9, 6, -52 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform12" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 39.9, 8, -52 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform13" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 31.9, 10, -52 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform14" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 31.9, 12, -60 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform40" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 13.9, 14, -72 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform15" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 25.9, 18, -78 )
+use_collision = true
+material = ExtResource( 2 )
+
+[node name="Platform39" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 49.9, 20, -68 )
+use_collision = true
+height = 4.0
+depth = 12.0
+material = ExtResource( 2 )
+
+[node name="Platform40" type="CSGBox" parent="Map/Platform39"]
+transform = Transform( 1, -5.4e-31, 1.77636e-15, 4.54038e-31, 1, 0, 3.55271e-15, 0, 1, 0, -1.25, -1.99999 )
+operation = 2
+use_collision = true
+height = 0.5
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform16" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 25.9, 18, -66 )
+use_collision = true
+material = ExtResource( 2 )
+
+[node name="Platform28" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 61.9, 10, -66 )
+use_collision = true
+width = 6.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform29" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 83.9, 10, -66 )
+use_collision = true
+width = 8.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform33" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 69.9, 10, -42 )
+use_collision = true
+width = 14.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform30" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 83.9, 10, -56 )
+use_collision = true
+width = 8.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform31" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 87.9, 10, -54 )
+use_collision = true
+width = 12.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform32" type="CSGBox" parent="Map"]
+transform = Transform( -1.19209e-07, 0, -2, 4.10783e-15, 2, 0, 2, -1.77636e-15, -5.96046e-08, 65.9, 10, -58 )
+use_collision = true
+width = 6.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform34" type="CSGBox" parent="Map"]
+transform = Transform( -1.19209e-07, 0, -2, 4.10783e-15, 2, 0, 2, -1.77636e-15, -5.96046e-08, 91.9, 10, -46 )
+use_collision = true
+width = 6.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform8" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 39.9, 0, -84 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform17" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 39.9, 0, -100 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform18" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 39.9, 2, -114 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform27" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 27.9, 26, -106 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="CSGMesh2" type="CSGMesh" parent="Map/Platform27"]
+transform = Transform( 1, -8.74228e-08, -5.96046e-08, -8.74227e-08, -1, -1.21597e-15, -1.19209e-07, 9.03217e-15, -1, -2, 0.5, 0 )
+operation = 2
+mesh = SubResource( 2 )
+
+[node name="Platform19" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 39.9, 4, -126 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform20" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 39.9, 6, -138 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform43" type="CSGBox" parent="Map"]
+transform = Transform( 1.50996e-07, 5.68937e-23, -2, -4.10783e-15, 2, -2.53239e-22, 2, 4.10783e-15, 1.50996e-07, 39.9, 7, -144 )
+use_collision = true
+height = 5.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform44" type="CSGBox" parent="Map"]
+transform = Transform( -2, -4.10783e-15, -3.01992e-07, -4.10783e-15, 2, -2.53239e-22, 3.01992e-07, 3.67026e-22, -2, 45.9, 7, -140 )
+use_collision = true
+height = 5.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform45" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 3.7751e-07, 4.10783e-15, 2, 0, -3.17905e-07, 3.88235e-22, 2, -2.10001, 13, -138 )
+use_collision = true
+height = 5.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform46" type="CSGBox" parent="Map"]
+transform = Transform( 2.30482e-07, -3.10588e-22, -2, 4.10783e-15, 2, 0, 2, -1.77636e-15, 2.90087e-07, 1.89999, 13, -144 )
+use_collision = true
+height = 5.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform21" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 27.9, 8, -138 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform22" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 15.9, 10, -138 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform25" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 19.9, 22, -106 )
+use_collision = true
+width = 4.0
+depth = 12.0
+material = ExtResource( 2 )
+
+[node name="CSGMesh3" type="CSGMesh" parent="Map/Platform25"]
+transform = Transform( 7.35137e-08, -4.73716e-15, 1, 1.78814e-07, 1, -3.38618e-15, -0.999999, 1.49012e-07, 1.39091e-08, 0, -0.499998, 6 )
+operation = 2
+mesh = SubResource( 2 )
+
+[node name="Platform26" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 61.9, 22, -106 )
+use_collision = true
+width = 8.0
+depth = 8.0
+material = ExtResource( 2 )
+
+[node name="Platform23" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 3.89999, 12, -134 )
+use_collision = true
+width = 8.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform24" type="CSGBox" parent="Map"]
+transform = Transform( -5.56364e-08, 1.55294e-22, 2, 4.10783e-15, 2, 0, -2, 1.77636e-15, -1.15241e-07, 3.89999, 16, -114 )
+use_collision = true
+width = 12.0
+height = 8.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Map/Platform24"]
+transform = Transform( -1, 8.74228e-08, -2.78182e-08, -8.74227e-08, -1, -1.21597e-15, 3.17864e-08, -1.38943e-15, 1, 6, 3, 0 )
+operation = 2
+mesh = SubResource( 3 )
+
+[node name="Platform35" type="CSGBox" parent="Map"]
+transform = Transform( -2, 1.77636e-15, -8.74228e-08, 4.10783e-15, 2, 0, 2.78181e-08, -1.30587e-22, -2, 79.9, 4, -24 )
+use_collision = true
+width = 16.0
+height = 8.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Map/Platform35"]
+transform = Transform( -1, 8.74228e-08, -2.78182e-08, -8.74227e-08, -1, -1.21597e-15, 3.17864e-08, -1.38943e-15, 1, 8, 3, 0 )
+operation = 2
+mesh = SubResource( 4 )
+
+[node name="Platform36" type="CSGBox" parent="Map"]
+transform = Transform( -2, 1.77636e-15, -8.74228e-08, 4.10783e-15, 2, 0, 2.78181e-08, -1.30587e-22, -2, 59.9, 2, -24 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform41" type="CSGBox" parent="Map"]
+transform = Transform( -2, 1.77636e-15, -8.74228e-08, 4.10783e-15, 2, 0, 2.78181e-08, -1.30587e-22, -2, 53.9, 6, -24 )
+use_collision = true
+height = 6.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform42" type="CSGBox" parent="Map"]
+transform = Transform( -2, 1.77636e-15, -8.74228e-08, 4.10783e-15, 2, 0, 2.78181e-08, -1.30587e-22, -2, 69.9, 6, -18 )
+use_collision = true
+width = 18.0
+height = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform37" type="CSGBox" parent="Map"]
+transform = Transform( -2, 1.77636e-15, -8.74228e-08, 4.10783e-15, 2, 0, 2.78181e-08, -1.30587e-22, -2, 99.9, 12, -24 )
+use_collision = true
+width = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform38" type="CSGBox" parent="Map"]
+transform = Transform( -2, 1.77636e-15, -8.74228e-08, 4.10783e-15, 2, 0, 2.78181e-08, -1.30587e-22, -2, 107.9, 14, -28 )
+use_collision = true
+width = 4.0
+depth = 8.0
+material = ExtResource( 2 )
+
+[node name="Platform9" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 3.17864e-08, 7.7647e-23, 2, 77.9, 8, -54 )
+use_collision = true
+width = 26.0
+height = 8.0
+depth = 26.0
+material = ExtResource( 2 )
+
+[node name="Platform44" type="CSGBox" parent="Map/Platform9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86102e-05, 2, 1.52588e-05 )
+operation = 2
+use_collision = true
+width = 22.0
+height = 8.0
+depth = 22.0
+material = ExtResource( 2 )
+
+[node name="Platform29" type="CSGBox" parent="Map/Platform9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, -8.99999 )
+operation = 2
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform30" type="CSGBox" parent="Map/Platform9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.00001, 0, 12 )
+operation = 2
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform5" type="CSGBox" parent="Map"]
+transform = Transform( -2.106e-07, 2.82321e-23, -2, 4.10783e-15, 2, 0, 2, -1.77636e-15, -9.13911e-08, 15.9, 0, -72 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 8.0
+material = ExtResource( 2 )
+
+[node name="Platform6" type="CSGBox" parent="Map"]
+transform = Transform( 2, -1.77636e-15, 2.78182e-08, 4.10783e-15, 2, 0, 9.13912e-08, 7.7647e-23, 2, 37.9, 8, -72 )
+use_collision = true
+width = 14.0
+height = 8.0
+depth = 8.0
+material = ExtResource( 2 )
+
+[node name="Platform7" type="CSGBox" parent="Map/Platform6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, -7.10543e-15, 6.31089e-30, 1, 0, 0, 0 )
+operation = 2
+use_collision = true
+width = 16.0
+height = 4.0
+depth = 4.0
+material = ExtResource( 2 )
+
+[node name="Platform8" type="CSGBox" parent="Map/Platform6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, -7.10543e-15, 3.15544e-29, 1, -6, 0, 0 )
+operation = 2
+use_collision = true
+height = 4.0
+depth = 8.0
+material = ExtResource( 2 )
+
+[node name="Platform9" type="CSGBox" parent="Map/Platform6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, -7.10543e-15, 5.6798e-29, 1, 1, 0, 0 )
+operation = 2
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 8.0
+material = ExtResource( 2 )
+
+[node name="Platform3" type="CSGBox" parent="Map"]
+transform = Transform( 2, 4.23516e-21, -2.13163e-14, 0, 2, -2.98024e-08, 2.13163e-14, 2.98024e-08, 2, -16, 0, -14 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Platform1" type="CSGBox" parent="Map"]
+transform = Transform( -8.74228e-08, 2.98024e-08, 2, 0, 2, -2.98024e-08, -2, -1.3027e-15, -8.74228e-08, -2, -3, -16 )
+use_collision = true
+width = 4.0
+height = 4.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="GridMap" type="GridMap" parent="Map"]
+mesh_library = ExtResource( 7 )
+cell_size = Vector3( 2, 1, 2 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray( 0, 10, 1048583, 1, 10, 1048583, 2, 10, 1048583, 4, 10, 1048583, 5, 10, 1048583, 6, 10, 1048583, 65536, 11, 1048583, 65537, 11, 1048583, 65540, 11, 1048583, 65541, 11, 1048583, 65542, 11, 1048583, 65536, 12, 0, 65537, 12, 0, 65540, 12, 0, 65541, 12, 0, 65542, 12, 0, 65545, 12, 0, 65546, 12, 0, 65547, 12, 0, 65548, 12, 0, 65549, 12, 0, 65550, 12, 0, 65551, 12, 0, 65552, 12, 0, 65553, 12, 655364, 65554, 12, 0, 131058, 12, 0, 131059, 12, 0, 131060, 12, 0, 131061, 12, 0, 131062, 12, 0, 131063, 12, 0, 131064, 12, 0, 131065, 12, 0, 131066, 12, 0, 131067, 12, 0, 131068, 12, 0, 131069, 12, 0, 131070, 12, 0, 131071, 12, 0, 65536, 13, 0, 65537, 13, 0, 65540, 13, 0, 65541, 13, 0, 65542, 13, 0, 65545, 13, 0, 65546, 13, 0, 65547, 13, 0, 65548, 13, 655364, 65549, 13, 0, 65550, 13, 0, 65551, 13, 0, 65552, 13, 0, 65553, 13, 0, 65554, 13, 0, 131058, 13, 0, 131059, 13, 0, 131060, 13, 0, 131061, 13, 0, 131062, 13, 0, 131063, 13, 0, 131064, 13, 0, 131065, 13, 0, 131066, 13, 0, 131067, 13, 0, 131068, 13, 0, 131069, 13, 0, 131070, 13, 0, 131071, 13, 0, 65536, 14, 0, 65537, 14, 0, 65540, 14, 0, 65541, 14, 0, 65542, 14, 0, 65545, 14, 0, 65546, 14, 0, 65547, 14, 0, 65548, 14, 0, 65549, 14, 0, 65550, 14, 0, 65551, 14, 0, 65552, 14, 0, 65553, 14, 0, 65554, 14, 0, 131058, 14, 0, 131059, 14, 0, 131060, 14, 0, 131061, 14, 0, 131062, 14, 0, 131063, 14, 0, 131064, 14, 0, 131065, 14, 0, 131066, 14, 0, 131067, 14, 0, 131068, 14, 0, 131069, 14, 0, 131070, 14, 0, 131071, 14, 0, 131076, 14, 1048583, 65536, 15, 0, 65537, 15, 0, 65545, 15, 0, 65546, 15, 0, 65547, 15, 0, 65548, 15, 0, 65549, 15, 0, 65550, 15, 0, 65551, 15, 0, 65552, 15, 655364, 65553, 15, 0, 65554, 15, 0, 131058, 15, 0, 131059, 15, 0, 131060, 15, 0, 131061, 15, 0, 131062, 15, 0, 131063, 15, 0, 131064, 15, 0, 131065, 15, 0, 131066, 15, 0, 131067, 15, 0, 131068, 15, 0, 131069, 15, 0, 131070, 15, 0, 131071, 15, 0, 65536, 16, 0, 65537, 16, 0, 65545, 16, 0, 65546, 16, 655364, 65547, 16, 0, 65548, 16, 0, 65549, 16, 0, 65550, 16, 0, 65551, 16, 0, 65552, 16, 0, 65553, 16, 0, 65554, 16, 0, 131058, 16, 0, 131059, 16, 0, 131060, 16, 0, 131061, 16, 0, 131062, 16, 0, 131063, 16, 0, 131064, 16, 0, 131065, 16, 0, 131066, 16, 0, 131067, 16, 0, 131068, 16, 0, 131069, 16, 0, 131070, 16, 0, 131071, 16, 0, 196599, 16, 655363, 196600, 16, 1048583, 196601, 16, 1048579, 65536, 17, 0, 65537, 17, 0, 65540, 17, 0, 65541, 17, 1048576, 65542, 17, 1048576, 65545, 17, 0, 65546, 17, 0, 65547, 17, 0, 65548, 17, 0, 65549, 17, 655364, 65550, 17, 0, 65551, 17, 0, 65552, 17, 0, 65553, 17, 0, 65554, 17, 0, 131058, 17, 0, 131059, 17, 0, 131060, 17, 0, 131061, 17, 0, 131062, 17, 0, 131063, 17, 0, 131064, 17, 0, 131065, 17, 0, 131066, 17, 0, 131067, 17, 0, 131068, 17, 0, 131069, 17, 0, 131070, 17, 0, 131071, 17, 0, 196598, 17, 655363, 196602, 17, 1048579, 262135, 17, 655368, 262136, 17, 1048583, 262137, 17, 1048584, 65536, 18, 0, 65537, 18, 0, 65540, 18, 0, 65541, 18, 655360, 65542, 18, 655360, 65545, 18, 0, 65546, 18, 0, 65547, 18, 0, 65548, 18, 0, 65549, 18, 0, 65550, 18, 0, 65551, 18, 0, 65552, 18, 0, 65553, 18, 0, 65554, 18, 655364, 131058, 18, 0, 131059, 18, 0, 131060, 18, 0, 131061, 18, 0, 131062, 18, 0, 131063, 18, 0, 131064, 18, 0, 131065, 18, 0, 131066, 18, 0, 131067, 18, 0, 131068, 18, 0, 131069, 18, 0, 131070, 18, 0, 131071, 18, 0, 131081, 18, 7, 65536, 19, 0, 65537, 19, 0, 65540, 19, 0, 65541, 19, 0, 65542, 19, 655360, 65545, 19, 0, 65546, 19, 0, 65547, 19, 0, 65548, 19, 0, 65549, 19, 0, 65550, 19, 0, 65551, 19, 0, 65552, 19, 0, 65553, 19, 0, 65554, 19, 0, 131058, 19, 0, 131059, 19, 0, 131060, 19, 0, 131061, 19, 0, 131062, 19, 0, 131063, 19, 0, 131064, 19, 0, 131065, 19, 0, 131066, 19, 0, 131067, 19, 0, 131068, 19, 0, 131069, 19, 0, 131070, 19, 0, 131071, 19, 0, 131078, 19, 655367, 65536, 20, 0, 65537, 20, 0, 65545, 20, 0, 65546, 20, 0, 65547, 20, 0, 65548, 20, 0, 65549, 20, 0, 65550, 20, 0, 65551, 20, 655364, 65552, 20, 0, 65553, 20, 0, 65554, 20, 0, 131058, 20, 0, 131059, 20, 0, 131060, 20, 0, 131061, 20, 0, 131062, 20, 0, 131063, 20, 0, 131064, 20, 0, 131065, 20, 0, 131066, 20, 0, 131067, 20, 0, 131068, 20, 0, 131069, 20, 0, 131070, 20, 0, 131071, 20, 0, 65536, 21, 0, 65537, 21, 0, 65545, 21, 0, 65546, 21, 0, 65547, 21, 655364, 65548, 21, 0, 65549, 21, 0, 65550, 21, 0, 65551, 21, 0, 65552, 21, 0, 65553, 21, 0, 65554, 21, 0, 131058, 21, 0, 131059, 21, 0, 131060, 21, 0, 131061, 21, 0, 131062, 21, 0, 131063, 21, 0, 131064, 21, 0, 131065, 21, 0, 131066, 21, 0, 131067, 21, 0, 131068, 21, 0, 131069, 21, 0, 131070, 21, 0, 131071, 21, 0, 65536, 22, 0, 65537, 22, 0, 65545, 22, 0, 65546, 22, 0, 65547, 22, 0, 65548, 22, 0, 65549, 22, 0, 65550, 22, 0, 65551, 22, 0, 65552, 22, 0, 65553, 22, 0, 65554, 22, 0, 131058, 22, 0, 131059, 22, 0, 131060, 22, 0, 131061, 22, 0, 131062, 22, 0, 131063, 22, 0, 131064, 22, 0, 131065, 22, 0, 131066, 22, 0, 131067, 22, 0, 131068, 22, 0, 131069, 22, 0, 131070, 22, 0, 131071, 22, 0, 65536, 23, 0, 65537, 23, 0, 65538, 23, 0, 65539, 23, 0, 65540, 23, 0, 65541, 23, 0, 65542, 23, 0, 65543, 23, 0, 65544, 23, 0, 65545, 23, 0, 65546, 23, 0, 65547, 23, 0, 65548, 23, 0, 65549, 23, 0, 65550, 23, 0, 65551, 23, 0, 65552, 23, 0, 65553, 23, 0, 65554, 23, 0, 131058, 23, 0, 131059, 23, 0, 131060, 23, 0, 131061, 23, 0, 131062, 23, 0, 131063, 23, 0, 131064, 23, 0, 131065, 23, 0, 131066, 23, 0, 131067, 23, 0, 131068, 23, 0, 131069, 23, 0, 131070, 23, 0, 131071, 23, 0, 65536, 24, 0, 65537, 24, 0, 65538, 24, 0, 65539, 24, 0, 65540, 24, 0, 65541, 24, 0, 65542, 24, 0, 65543, 24, 0, 65544, 24, 0, 65545, 24, 0, 65546, 24, 0, 65547, 24, 0, 65548, 24, 0, 65549, 24, 0, 65550, 24, 655364, 65551, 24, 0, 65552, 24, 0, 65553, 24, 0, 65554, 24, 0, 131058, 24, 0, 131059, 24, 0, 131060, 24, 0, 131061, 24, 0, 131062, 24, 0, 131063, 24, 0, 131064, 24, 0, 131065, 24, 0, 131066, 24, 0, 131067, 24, 0, 131068, 24, 0, 131069, 24, 0, 131070, 24, 0, 131071, 24, 0, 65536, 25, 0, 65537, 25, 0, 65538, 25, 0, 65539, 25, 0, 65540, 25, 0, 65541, 25, 0, 65542, 25, 0, 65543, 25, 0, 65544, 25, 0, 65545, 25, 0, 65546, 25, 0, 65547, 25, 0, 65548, 25, 0, 65549, 25, 0, 65550, 25, 0, 65551, 25, 0, 65552, 25, 0, 65553, 25, 0, 65554, 25, 0, 131058, 25, 0, 131059, 25, 0, 131060, 25, 0, 131061, 25, 0, 131062, 25, 0, 131063, 25, 0, 131064, 25, 0, 131065, 25, 0, 131066, 25, 0, 131067, 25, 0, 131068, 25, 0, 131069, 25, 0, 131070, 25, 0, 131071, 25, 0 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 2, 0 )
+}
+
+[node name="Controller" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148045, 0 )
+
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 6.1797, 5.36232, 4.37889 )
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Path" type="Path" parent="."]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -34.5251, 0, -91.0251 )
+curve = SubResource( 5 )
+
+[node name="RoadTest" type="CSGPolygon" parent="."]
+transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -39.4749, 0, -95.9749 )
+use_collision = true
+invert_faces = true
+polygon = PoolVector2Array( -2, 0, -2, 0.2, 2, 0.2, 2, 0 )
+mode = 2
+path_node = NodePath("../Path")
+path_interval = 1.0
+path_rotation = 2
+path_local = false
+path_continuous_u = false
+path_joined = true
+material = SubResource( 6 )
+
+[node name="Ball" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, -3 )
+
+[node name="Gachas" type="Spatial" parent="."]
+
+[node name="gacha" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.55, 4, -11.55 )
+color = Color( 1, 0, 0, 1 )
+color_name = "Red"
+
+[node name="gacha2" parent="Gachas" instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 107.8, 16, -32.1 )
+color = Color( 0.662745, 1, 0, 1 )
+color_name = "Green"
+
+[node name="Menu" parent="." instance=ExtResource( 10 )]
+
+[node name="GUI" parent="." instance=ExtResource( 9 )]
+visible = false
+
+[node name="gacha" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, 16, -72 )
+color = Color( 0.941176, 0.596078, 1, 1 )
+color_name = "Pink"
+
+[node name="gacha2" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 61.8, 24, -106.1 )
+color = Color( 0.223529, 0.764706, 1, 1 )
+color_name = "Blue"

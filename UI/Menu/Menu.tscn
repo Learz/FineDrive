@@ -55,9 +55,9 @@ __meta__ = {
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 40.0
-margin_top = -228.0
+margin_top = -284.0
 margin_right = 240.0
-margin_bottom = -40.0
+margin_bottom = -32.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -67,18 +67,27 @@ margin_right = 200.0
 title = "Start"
 type = 4
 
-[node name="OptionsButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
+[node name="LoadSandboxButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
 margin_top = 64.0
 margin_right = 200.0
 margin_bottom = 124.0
+title = "Load Trial Level
+"
+link = "res://Scenes/Levels/Level_Trial.tscn"
+type = 0
+
+[node name="OptionsButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
+margin_top = 128.0
+margin_right = 200.0
+margin_bottom = 188.0
 title = "Options"
 link = "Options"
 type = 3
 
 [node name="QuitButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
-margin_top = 128.0
+margin_top = 192.0
 margin_right = 200.0
-margin_bottom = 188.0
+margin_bottom = 252.0
 title = "Quit"
 
 [node name="Options" type="Control" parent="HBox"]
