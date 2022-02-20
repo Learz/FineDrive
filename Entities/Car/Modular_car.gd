@@ -38,7 +38,9 @@ func set_wheels(v):
 func set_color(col : Color):
 	color = col
 	if $Base/Body_Pos.get_child_count() > 0:
+		
 		var material = $Base/Body_Pos.get_child(0).get_child(0).get_surface_material(0)
+		material.set_shader_param("base_color", material.get_shader_param("next_color"))
 		material.set_shader_param("next_color", col)
 		Global.tween.interpolate_method(self, "shader_param_transition", 0.0, 1.0, 3)
 		Global.tween.start()
@@ -47,4 +49,5 @@ func set_color(col : Color):
 		material.set_shader_param("color_transition", 0)
 		
 func shader_param_transition(value):
+	$Base/Body_Pos.get_child(0).get_child(0).get_surface_material(0).set_shader_param("transition_origin", get_viewport().get_camera().unproject_position(global_transform.origin))
 	$Base/Body_Pos.get_child(0).get_child(0).get_surface_material(0).set_shader_param("color_transition", value)

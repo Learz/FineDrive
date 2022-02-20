@@ -2,7 +2,7 @@
 
 [ext_resource path="res://UI/UI_Theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/UI.gd" type="Script" id=2]
-[ext_resource path="res://UI/Prompt.gd" type="Script" id=3]
+[ext_resource path="res://addons/PerfMonitor/PerfMonitor.gd" type="Script" id=3]
 [ext_resource path="res://UI/Glyphs/xbox/xbox_rt.png" type="Texture" id=4]
 [ext_resource path="res://UI/Glyphs/keyboard/kb_s.png" type="Texture" id=5]
 [ext_resource path="res://UI/Glyphs/keyboard/kb_space.png" type="Texture" id=6]
@@ -69,14 +69,32 @@ __meta__ = {
 [node name="UIAnimator" type="AnimationPlayer" parent="."]
 anims/Notification = SubResource( 1 )
 
-[node name="DebugInfo" type="Label" parent="."]
+[node name="Debug" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugInfo" type="Label" parent="Debug"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 40.0
-margin_bottom = 38.0
+margin_right = 93.0
+margin_bottom = 46.0
 custom_fonts/font = SubResource( 2 )
 text = "Test : 12414
 Test2 : 131"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Monitor" type="Control" parent="Debug"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = 472.0
+margin_right = 761.0
+margin_bottom = 560.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -146,55 +164,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Prompt_Drift" type="HBoxContainer" parent="Prompts" instance=ExtResource( 13 )]
-margin_right = 194.0
-margin_bottom = 38.0
-size_flags_vertical = 7
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Prompt_Drift" parent="Prompts" instance=ExtResource( 13 )]
 prompt = "Drift"
 glyph_xbox = ExtResource( 7 )
 glyph_pc = ExtResource( 8 )
 
-[node name="Prompt_Jump" type="HBoxContainer" parent="Prompts" instance=ExtResource( 13 )]
+[node name="Prompt_Jump" parent="Prompts" instance=ExtResource( 13 )]
 margin_top = 48.0
-margin_right = 194.0
 margin_bottom = 86.0
-size_flags_vertical = 7
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 prompt = "Jump"
 glyph_xbox = ExtResource( 11 )
 glyph_pc = ExtResource( 6 )
 
-[node name="Prompt_Brake" type="HBoxContainer" parent="Prompts" instance=ExtResource( 13 )]
+[node name="Prompt_Brake" parent="Prompts" instance=ExtResource( 13 )]
 margin_top = 96.0
-margin_right = 194.0
 margin_bottom = 134.0
-size_flags_vertical = 7
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 prompt = "Brake"
 glyph_xbox = ExtResource( 10 )
 glyph_pc = ExtResource( 5 )
 
-[node name="Prompt_Accelerate" type="HBoxContainer" parent="Prompts" instance=ExtResource( 13 )]
+[node name="Prompt_Accelerate" parent="Prompts" instance=ExtResource( 13 )]
 margin_top = 144.0
-margin_right = 194.0
 margin_bottom = 182.0
-size_flags_vertical = 7
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 prompt = "Accelerate"
 glyph_xbox = ExtResource( 4 )
 glyph_pc = ExtResource( 9 )
+
+[node name="DebugMarker" type="ColorRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
 
 [connection signal="animation_finished" from="UIAnimator" to="." method="_on_UIAnimator_animation_finished"]

@@ -9,7 +9,7 @@
 _data = [ Vector2( 0, 1 ), 0.0, -1.02937, 0, 0, Vector2( 1, 0 ), -3.31636, 0.0, 0, 0 ]
 
 [sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 1 ), 0.0, -0.709091, 0, 1, Vector2( 1, 0.290909 ), -0.709091, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, -0.763636, 0, 1, Vector2( 1, 0.236364 ), -0.763636, -9.85909, 1, 1 ]
 
 [sub_resource type="Curve" id=3]
 bake_resolution = 15

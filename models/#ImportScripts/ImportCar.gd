@@ -5,6 +5,7 @@ var wheel_template = load("res://models/#ImportScripts/VehicleWheel.tscn")
 var collision_shape = load("res://models/#ImportScripts/RegularCarCollisionShape.tscn")
 var rootScene
 
+#TODO (Unrelated to script) Try changing center of gravity of car (model)
 func post_import(scene):
 	rootScene = scene
 	iterate(scene)

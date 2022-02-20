@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/UI_Theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Menu/MenuButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://UI/Menu/Menu.gd" type="Script" id=3]
+[ext_resource path="res://UI/Logo.png" type="Texture" id=4]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -13,23 +14,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="HBox" type="HBoxContainer" parent="."]
+anchor_right = 2.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="Control" parent="HBox"]
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="HBox/MainMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1024.0
 color = Color( 0, 0, 0, 0.509804 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainMenu" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="TextureRect" type="TextureRect" parent="HBox/MainMenu"]
+margin_left = 40.0
+margin_top = 40.0
+margin_right = 539.0
+margin_bottom = 290.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="VBoxContainer" parent="MainMenu"]
+[node name="Buttons" type="VBoxContainer" parent="HBox/MainMenu"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 40.0
@@ -40,12 +62,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartButton" parent="MainMenu/Buttons" instance=ExtResource( 2 )]
+[node name="StartButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
 margin_right = 200.0
 title = "Start"
 type = 4
 
-[node name="OptionsButton" parent="MainMenu/Buttons" instance=ExtResource( 2 )]
+[node name="OptionsButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
 margin_top = 64.0
 margin_right = 200.0
 margin_bottom = 124.0
@@ -53,22 +75,30 @@ title = "Options"
 link = "Options"
 type = 3
 
-[node name="QuitButton" parent="MainMenu/Buttons" instance=ExtResource( 2 )]
+[node name="QuitButton" parent="HBox/MainMenu/Buttons" instance=ExtResource( 2 )]
 margin_top = 128.0
 margin_right = 200.0
 margin_bottom = 188.0
 title = "Quit"
 
-[node name="Options" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Options" type="Control" parent="HBox"]
 margin_left = 1024.0
-margin_right = 1024.0
+margin_right = 2048.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionsTitle" type="Label" parent="Options"]
+[node name="Background" type="ColorRect" parent="HBox/Options"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.509804 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsTitle" type="Label" parent="HBox/Options"]
 margin_left = 40.0
 margin_top = 40.0
 margin_right = 151.0
@@ -78,7 +108,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="VBoxContainer" parent="Options"]
+[node name="Buttons" type="VBoxContainer" parent="HBox/Options"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 40.0
@@ -86,7 +116,7 @@ margin_top = -100.0
 margin_right = 240.0
 margin_bottom = -40.0
 
-[node name="BackButton" parent="Options/Buttons" instance=ExtResource( 2 )]
+[node name="BackButton" parent="HBox/Options/Buttons" instance=ExtResource( 2 )]
 margin_right = 200.0
 title = "Back"
 link = "MainMenu"

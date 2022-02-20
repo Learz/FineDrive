@@ -24,8 +24,10 @@ var paused = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(tween)
-	pass # Replace with function body.
 
+func _input(event):
+	if event.is_action_pressed("dev_reset"):
+		get_tree().reload_current_scene()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -38,7 +40,8 @@ func _process(delta):
 		right_joypad_vec = right_joypad_vec.normalized() * ((right_joypad_vec.length() - JOYPAD_DEADZONE) / (1 - JOYPAD_DEADZONE))
 	
 	left_joypad_vec = Vector2.ZERO
-	left_joypad_vec = Vector2(Input.get_joy_axis(0, 0), Input.get_joy_axis(0, 1))
+	left_joypad_vec = Vector2(Input.get_joy_axis(0, 0), Input.get_joy_axis(0, 1)) + Vector2(Input.get_action_strength("steer_right")-Input.get_action_strength("steer_left"), Input.get_action_strength("steer_backward")-Input.get_action_strength("steer_forward"))
+	left_joypad_vec = left_joypad_vec.clamped(1)
 	if left_joypad_vec.length() < JOYPAD_DEADZONE:
 		left_joypad_vec = Vector2(0, 0)
 	else:

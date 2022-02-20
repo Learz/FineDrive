@@ -19,7 +19,8 @@ func _ready():
 # TODO : Better camera tracking
 func _physics_process(delta):
 	transform.origin = lerp(transform.origin, track_object.transform.origin, delta*10.0)
-	rotation.y = lerp_angle(rotation.y, track_object.rotation.y, delta*10.0)
+	if controller.state != controller.STATE.JUMPING:
+		rotation.y = lerp_angle(rotation.y, track_object.rotation.y, delta*10.0)
 	
 	# Start and idle timer if the camera controls are untouched
 	if Global.right_joypad_vec.length() == 0:

@@ -3,13 +3,10 @@
 [sub_resource type="Shader" id=1]
 code = "shader_type spatial;
 
-uniform vec4 base_mask : hint_color;
 uniform vec4 base_color : hint_color;
 uniform vec4 next_color : hint_color;
 uniform float color_transition : hint_range(0,1);
-
-uniform vec4 window_mask : hint_color;
-uniform vec4 window_color : hint_color;
+uniform vec2 transition_origin;
 
 /**
  * Draw a circle at vec2 `pos` with radius `rad` and
@@ -35,24 +32,22 @@ void fragment(){
 	if(color_transition == 0f){
 		ALBEDO = base_color.rgb;
 	}
-	else if(ALBEDO.r >= base_mask.r && ALBEDO.g >= base_mask.g && ALBEDO.b >= base_mask.b){
+	else if(color_transition == 1f){
+		ALBEDO = next_color.rgb;
+	}
+	else{
 		vec4 circ = circle(
 			vec2(	SCREEN_UV.x, SCREEN_UV.y * (VIEWPORT_SIZE.y / VIEWPORT_SIZE.x)), //UVs
-					vec2(0.5,(VIEWPORT_SIZE.y / VIEWPORT_SIZE.x)/2.0-0.15), //Position
+					vec2((transition_origin.x/VIEWPORT_SIZE.x),(1.0-(transition_origin.y/VIEWPORT_SIZE.y))* (VIEWPORT_SIZE.y / VIEWPORT_SIZE.x)), //Position
 					color_transition, //Radius
 					next_color.rgb); //Color
 		ALBEDO = mix(base_color, next_color, circ.a).rgb;
 	}
-//	if(ALBEDO.r >= window_mask.r && ALBEDO.g >= window_mask.g && ALBEDO.b >= window_mask.b){
-//		ALBEDO = window_color.rgb;
-//	}
 }"
 
 [resource]
 shader = SubResource( 1 )
-shader_param/base_mask = Color( 0.8, 0, 1, 1 )
-shader_param/base_color = Color( 1, 0.607843, 0, 1 )
-shader_param/next_color = Color( 0, 0, 0, 1 )
+shader_param/base_color = Color( 1, 0.654902, 0, 1 )
+shader_param/next_color = Color( 1, 0.654902, 0, 1 )
 shader_param/color_transition = 0.0
-shader_param/window_mask = Color( 0, 0.698039, 1, 1 )
-shader_param/window_color = Color( 0.380392, 0.662745, 0.678431, 1 )
+shader_param/transition_origin = null

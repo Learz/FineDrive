@@ -4,12 +4,12 @@ const startLabelChange = "Continue Driving"
 var current_node
 
 func _ready():
-	current_node = $MainMenu
+	current_node = $HBox/MainMenu
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
-	$MainMenu/Buttons/StartButton.grab_focus()
-	for button in $MainMenu/Buttons.get_children():
+	$HBox/MainMenu/Buttons/StartButton.grab_focus()
+	for button in $HBox/MainMenu/Buttons.get_children():
 		button.connect("pressed", self, "_on_Button_Pressed", [button.link, button.type])
-	for button in $Options/Buttons.get_children():
+	for button in $HBox/Options/Buttons.get_children():
 		button.connect("pressed", self, "_on_Button_Pressed", [button.link, button.type])
 
 func _input(event: InputEvent) -> void:
@@ -32,7 +32,7 @@ func _on_Button_Pressed(link, type):
 		2:
 			Global.quit()
 		3:
-			jump_to_node(get_node(link))
+			jump_to_node($HBox.get_node(link))
 		4:
 			close_menu()
 
@@ -49,16 +49,16 @@ func close_menu():
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Global.paused = false
 	var tweenSpeed = 0.5
-	if $MainMenu/Buttons/StartButton.title != startLabelChange:
+	if $HBox/MainMenu/Buttons/StartButton.title != startLabelChange:
 		tweenSpeed = 1
 	$Tween.interpolate_property(self, "modulate", null, Color(1,1,1,0), tweenSpeed)
 	$Tween.start()
 	yield($Tween, "tween_all_completed")
-	$MainMenu/Buttons/StartButton.title = startLabelChange
+	$HBox/MainMenu/Buttons/StartButton.title = startLabelChange
 	visible = false
 	
 func open_menu():
-	$MainMenu/Buttons/StartButton.grab_focus()
+	$HBox/MainMenu/Buttons/StartButton.grab_focus()
 	Global.displayHUD = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Global.paused = true
