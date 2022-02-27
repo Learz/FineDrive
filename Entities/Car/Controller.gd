@@ -17,6 +17,9 @@ const MAX_STEERING = 1.0
 const JUMP_FORCE = 200.0
 const AIR_CONTROL_FORCE = 3.0
 
+enum ACMODE {SPIN, SHIFT}
+var air_control_mode = ACMODE.SPIN
+
 var speed = 0
 var jumpCount = 0
 
@@ -103,12 +106,14 @@ func _process(delta):
 		state = STATE.JUMPING
 		var ljv = Global.left_joypad_vec
 		#AIR STEERING
-		#TODO : Figure out if I prefer spinning or small air adjustments
-#		if car.linear_velocity.length()*3.6 < MAX_SPEED:
-#			car.apply_central_impulse(car.global_transform.basis * Vector3(0,0,ljv.y) * AIR_CONTROL_FORCE)
-#			car.apply_impulse(Vector3(0,0,1), Vector3(-ljv.x,0,0))
-		if car.angular_velocity.length() < 8:
-			car.apply_torque_impulse((car.global_transform.basis * Vector3(ljv.y*AIR_CONTROL_FORCE*2,0,0)) + Vector3(0,-ljv.x*AIR_CONTROL_FORCE,0))
+		match air_control_mode:
+			ACMODE.SHIFT:
+				if car.linear_velocity.length()*3.6 < MAX_SPEED:
+					car.apply_central_impulse(car.global_transform.basis * Vector3(ljv.x,0,ljv.y) * AIR_CONTROL_FORCE)
+#					car.apply_impulse(Vector3(0,0,1), Vector3(-ljv.x,0,0))
+			ACMODE.SPIN:
+				if car.angular_velocity.length() < 8:
+					car.apply_torque_impulse((car.global_transform.basis * Vector3(ljv.y*AIR_CONTROL_FORCE*2,0,0)) + Vector3(0,-ljv.x*AIR_CONTROL_FORCE,0))
 		# Mid-air double jump controls
 		# Shift the car in the direction of the left joystick
 		if Input.is_action_just_pressed("jump") and jumpCount <= 0:

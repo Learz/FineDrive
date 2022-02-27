@@ -8,9 +8,11 @@ func _ready():
 	get_tree().get_root().connect("size_changed", self, "_on_resize")
 	$HBox/MainMenu/Buttons/StartButton.grab_focus()
 	for button in $HBox/MainMenu/Buttons.get_children():
-		button.connect("pressed", self, "_on_Button_Pressed", [button.link, button.type])
+		if button is Button:
+			button.connect("pressed", self, "_on_Button_Pressed", [button.link, button.type])
 	for button in $HBox/Options/Buttons.get_children():
-		button.connect("pressed", self, "_on_Button_Pressed", [button.link, button.type])
+		if button is Button:
+			button.connect("pressed", self, "_on_Button_Pressed", [button.link, button.type])
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -75,3 +77,7 @@ func get_first_button(node):
 			rN = get_first_button(N)
 			if rN:
 				return rN
+
+
+func _on_OptionButton_item_selected(index):
+	Global.controller.air_control_mode = index

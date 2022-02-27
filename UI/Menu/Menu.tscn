@@ -124,11 +124,39 @@ margin_left = 40.0
 margin_top = -100.0
 margin_right = 240.0
 margin_bottom = -40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBox/Options/Buttons"]
+margin_right = 369.0
+margin_bottom = 38.0
+
+[node name="Label" type="Label" parent="HBox/Options/Buttons/HBoxContainer"]
+margin_right = 265.0
+margin_bottom = 38.0
+text = "Air Control Mode : "
+
+[node name="OptionButton" type="OptionButton" parent="HBox/Options/Buttons/HBoxContainer"]
+margin_left = 269.0
+margin_right = 369.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 100, 0 )
+text = "Spin"
+items = [ "Spin", null, false, 0, null, "Shift", null, false, 1, null ]
+selected = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BackButton" parent="HBox/Options/Buttons" instance=ExtResource( 2 )]
-margin_right = 200.0
+margin_top = 42.0
+margin_right = 369.0
+margin_bottom = 102.0
 title = "Back"
 link = "MainMenu"
 type = 3
 
 [node name="Tween" type="Tween" parent="."]
+
+[connection signal="item_selected" from="HBox/Options/Buttons/HBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
